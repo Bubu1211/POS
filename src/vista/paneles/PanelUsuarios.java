@@ -1,18 +1,20 @@
 package vista.paneles;
 
+import com.toedter.calendar.JDateChooser;
+
 
 public class PanelUsuarios extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelUsuarios
-     */
+    //C
     public PanelUsuarios() {
+        
         initComponents();
         colorRojo = new java.awt.Color(204,0,0);
         colorAzul = new java.awt.Color(0,204,204);
         colorVerde = new java.awt.Color(51,255,0);
         colorAmarillo = new java.awt.Color(255,204,0);
         colorMorado = new java.awt.Color(153,0,153);
+        JDateChooser datos;
     }
 
     /**
@@ -103,7 +105,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/insertar.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/insertar.png"))); // NOI18N
 
         javax.swing.GroupLayout botonAgregarLayout = new javax.swing.GroupLayout(botonAgregar);
         botonAgregar.setLayout(botonAgregarLayout);
@@ -120,7 +122,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
             .addGroup(botonAgregarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(botonAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -157,7 +159,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/modificar.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/modificar.png"))); // NOI18N
 
         javax.swing.GroupLayout botonModificarLayout = new javax.swing.GroupLayout(botonModificar);
         botonModificar.setLayout(botonModificarLayout);
@@ -176,7 +178,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addGroup(botonModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(botonModificarLayout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 13, Short.MAX_VALUE))
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -213,7 +215,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/eliminar.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/cancelar.png"))); // NOI18N
 
         javax.swing.GroupLayout botonEliminarLayout = new javax.swing.GroupLayout(botonEliminar);
         botonEliminar.setLayout(botonEliminarLayout);
@@ -266,7 +268,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/usuario.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/usuario.png"))); // NOI18N
 
         javax.swing.GroupLayout botonNuevoPuestoLayout = new javax.swing.GroupLayout(botonNuevoPuesto);
         botonNuevoPuesto.setLayout(botonNuevoPuestoLayout);
@@ -380,7 +382,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -406,7 +408,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                                 .addComponent(jLabel11)
                                 .addGap(245, 245, 245))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,7 +416,7 @@ public class PanelUsuarios extends javax.swing.JPanel {
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonNuevoPuesto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                     .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(42, 42, 42)
