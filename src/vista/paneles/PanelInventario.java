@@ -56,8 +56,8 @@ public class PanelInventario extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ctBusqueda = new javax.swing.JTextField();
+        cmbBusqueda = new javax.swing.JComboBox<>();
         btnOrdenar = new javax.swing.JButton();
         cmbOrden = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -369,9 +369,14 @@ public class PanelInventario extends javax.swing.JPanel {
                 .addGap(0, 1, Short.MAX_VALUE))
         );
 
-        jTextField1.setToolTipText("Al presionar enter se realizará la búsqueda");
+        ctBusqueda.setToolTipText("Al presionar enter se realizará la búsqueda");
+        ctBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ctBusquedaKeyPressed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UPC", "Descripción", " " }));
+        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UPC", "Descripción", " " }));
 
         btnOrdenar.setText("Ordenar por:");
         btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
@@ -423,9 +428,9 @@ public class PanelInventario extends javax.swing.JPanel {
                         .addComponent(botonPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnOrdenar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -446,8 +451,8 @@ public class PanelInventario extends javax.swing.JPanel {
                 .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOrdenar)
                     .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -472,19 +477,21 @@ public class PanelInventario extends javax.swing.JPanel {
         // Evento del boton agregar nuevo artículo
         FormularioArticulo formularioArticulo = new FormularioArticulo();
         formularioArticulo.setVisible(true);
+        articulo = null;
     }//GEN-LAST:event_botonAgregarMouseClicked
 
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
         // Evento de modificar el articulo seleccionado
         ///se necesita hacer un constructor con argumentos en la clase formularioArticulo para recibir un articulo
         if (articulo == null || jtArticulos.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al modificar",
                     "Debe seleccionar algun artículo", JOptionPane.ERROR_MESSAGE);
-        }else{
-            
-        FormularioArticulo formularioArticulo = new FormularioArticulo(articulo);
-        formularioArticulo.setVisible(true); 
+        } else {
+
+            FormularioArticulo formularioArticulo = new FormularioArticulo(articulo);
+            formularioArticulo.setVisible(true);
         }
+        articulo = null;
     }//GEN-LAST:event_botonModificarMouseClicked
 
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
@@ -498,15 +505,16 @@ public class PanelInventario extends javax.swing.JPanel {
                     JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
                 try {
                     this.control.eliminar(articulo.getId());
+                    JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ControlException ex) {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
                             ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+        articulo = null;
     }//GEN-LAST:event_botonEliminarMouseClicked
 
     private void botonAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMousePressed
@@ -566,8 +574,14 @@ public class PanelInventario extends javax.swing.JPanel {
     }//GEN-LAST:event_botonPromocionesMouseClicked
 
     private void botonListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonListarMouseClicked
-        ///Evento de boton listar, debe llenar la tabla
-        JOptionPane.showMessageDialog(this, "Llenando tabla", "Datos de la BD", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            ///Evento de boton listar, debe llenar la tabla
+            var modeloTabla = this.control.listarArticulos();
+            this.jtArticulos.setModel(modeloTabla);
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonListarMouseClicked
 
     private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
@@ -578,6 +592,19 @@ public class PanelInventario extends javax.swing.JPanel {
         ///de articulos el método buscar trae todos los datos 
         articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
     }//GEN-LAST:event_jtArticulosMouseClicked
+
+    private void ctBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctBusquedaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == 10) {
+            String busqueda = ctBusqueda.getText();
+            try {
+                this.jtArticulos.setModel(this.control.buscarArticulo(cmbBusqueda.getSelectedIndex(), busqueda));
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al buscar",
+                        ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ctBusquedaKeyPressed
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorVerde;
@@ -591,8 +618,9 @@ public class PanelInventario extends javax.swing.JPanel {
     private javax.swing.JPanel botonModificar;
     private javax.swing.JPanel botonPromociones;
     private javax.swing.JButton btnOrdenar;
+    private javax.swing.JComboBox<String> cmbBusqueda;
     private javax.swing.JComboBox<String> cmbOrden;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField ctBusqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -610,7 +638,6 @@ public class PanelInventario extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtArticulos;
     // End of variables declaration//GEN-END:variables
 }
