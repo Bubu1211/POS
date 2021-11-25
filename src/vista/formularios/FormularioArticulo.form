@@ -32,6 +32,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="botonNuevaCategoria" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="ctPrecioCompra" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
                           <Component id="botonGuardar" min="-2" max="-2" attributes="0"/>
@@ -44,10 +51,10 @@
                       </Group>
                       <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="cmbProveedor" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctUpc" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cmbProveedores" alignment="0" max="32767" attributes="0"/>
                           <Component id="ctDescripcion" alignment="0" max="32767" attributes="0"/>
                           <Component id="cmbCategoria" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -60,13 +67,6 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="botonNuevaCategoria" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -93,7 +93,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="cmbProveedor" min="-2" max="-2" attributes="0"/>
+              <Component id="cmbProveedores" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -158,8 +158,6 @@
         <Property name="text" type="java.lang.String" value="UPC"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="ctUpc">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
@@ -190,7 +188,7 @@
         <Property name="text" type="java.lang.String" value="Proveedor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cmbProveedor">
+    <Component class="javax.swing.JComboBox" name="cmbProveedores">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -450,5 +448,7 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="ctUpc">
+    </Component>
   </SubComponents>
 </Form>

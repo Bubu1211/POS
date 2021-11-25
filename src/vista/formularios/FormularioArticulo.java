@@ -2,42 +2,90 @@ package vista.formularios;
 
 import control.ControlArticulos;
 import datos.entidades.Articulo;
+import datos.entidades.Categoria;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import utilidades.excepciones.ControlException;
 
 public class FormularioArticulo extends javax.swing.JFrame {
 
     private ControlArticulos control;
     private Articulo articulo;
-    
-    public FormularioArticulo(Articulo articulo){
+    private boolean modificar;
+
+    public FormularioArticulo(Articulo articulo) {
         this();
+        modificar = true;
         ///Pone los atributos en los campos de texto
         ctUpc.setText(String.valueOf(articulo.getId()));
         ctDescripcion.setText(articulo.getDescripcion());
-        
-        
+        cmbCategoria.setSelectedIndex(articulo.getIdCategoria());
+        cmbProveedores.setSelectedIndex(articulo.getIdProveedor());
+        ctPrecioVenta.setText(null);
+        ctPrecioCompra.setText(null);
         ///dESACTIVA el campo de texto de UPC ya que ya contiejne uno
         ctUpc.setEditable(false);
     }
-    
+
     public FormularioArticulo() {
         initComponents();
         colorAzul = new java.awt.Color(0, 183, 222);
         colorRojo = new java.awt.Color(255, 0, 51);
         colorVerde = new java.awt.Color(0, 204, 51);
-        
+
         this.setLocationRelativeTo(null);
-        
+
         control = new ControlArticulos();
+        modificar = false;
+        this.setModeloCategoriasProveedores();
     }
-    
-    private void limpiar(){
+
+    private void setModeloCategoriasProveedores() {
+        try {
+            ///Llena el modelo del comboList
+            control.listarProveedoresCategorias();
+            var categorias = control.getCategorias();
+            var proveedores = control.getProveedores();
+
+            String[] modeloCategorias = new String[categorias.size()];
+            String[] modeloProveedores = new String[proveedores.size()];
+
+            for (int i = 0; i < modeloCategorias.length; i++) {
+                modeloCategorias[i] = categorias.get(i);
+            }
+
+            for (int i = 0; i < modeloProveedores.length; i++) {
+                modeloProveedores[i] = proveedores.get(i);
+            }
+
+            this.cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(modeloCategorias));
+            this.cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(modeloProveedores));
+
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+
+        }
+    }
+
+    private void limpiar() {
         ctUpc.setText(null);
         ctDescripcion.setText(null);
         ctPrecioVenta.setText(null);
         ctPrecioCompra.setText(null);
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Categoría" }));
-        cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Proveedor" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Categoría"}));
+        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Proveedor"}));
+    }
+
+    private void cajaTextoError(javax.swing.JTextField ct) {
+        ct.requestFocus();
+        ct.setForeground(java.awt.Color.RED);
+    }
+
+    private void cajaTextoNormal(javax.swing.JTextField ct) {
+        ct.setForeground(java.awt.Color.BLACK);
     }
 
     @SuppressWarnings("unchecked")
@@ -47,13 +95,12 @@ public class FormularioArticulo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        ctUpc = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         ctDescripcion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        cmbProveedor = new javax.swing.JComboBox<>();
+        cmbProveedores = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         ctPrecioCompra = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -68,6 +115,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        ctUpc = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -104,7 +152,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
 
         jLabel5.setText("Proveedor");
 
-        cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proveedor", "Proveedor", "Proveedor" }));
+        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Proveedor", "Proveedor", "Proveedor" }));
 
         jLabel6.setText("Precio compra");
 
@@ -274,6 +322,11 @@ public class FormularioArticulo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(botonNuevaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(ctPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,10 +336,10 @@ public class FormularioArticulo extends javax.swing.JFrame {
                             .addComponent(ctPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 34, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbProveedor, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ctUpc, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbProveedores, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ctDescripcion, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -295,12 +348,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(botonNuevaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +371,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -353,8 +401,68 @@ public class FormularioArticulo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonGuardarMouseReleased
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-        //EVENTO DEL BOTON GUARDAR
-        JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+        cajaTextoNormal(ctUpc);
+        cajaTextoNormal(ctDescripcion);
+        cajaTextoNormal(ctPrecioVenta);
+        cajaTextoNormal(ctPrecioCompra);
+
+        ///Recupera los datos de los campos de texto 
+        String upcString = ctUpc.getText();
+        String descripcionString = ctDescripcion.getText();
+        String precioVentaString = ctPrecioVenta.getText();
+        String precioCompraString = ctPrecioCompra.getText();
+
+        if (!upcString.isEmpty()) {
+            if (!descripcionString.isEmpty()) {
+                if (!precioVentaString.isEmpty()) {
+                    if (!precioCompraString.isEmpty()) {
+
+                        try {
+                            articulo.setId(Integer.parseInt(upcString));
+                            articulo.setPrecioCompra(Float.parseFloat(precioCompraString));
+                            articulo.setPrecioVenta(Float.parseFloat(precioVentaString));
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(this, "Error al obtener valores numéricos", "Por favor verifique las entradas", JOptionPane.ERROR_MESSAGE);
+                            cajaTextoError(ctUpc);
+                            cajaTextoError(ctPrecioCompra);
+                            cajaTextoError(ctPrecioVenta);
+                        }
+
+                        try {
+                            //EVENTO DEL BOTON GUARDAR
+                            if (modificar) {
+                                this.control.modificarArticulo(articulo);
+                                JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+                            } else {
+                                this.control.insertarArticulo(articulo);
+                                JOptionPane.showMessageDialog(this, "El artículo se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+                            }
+
+                        } catch (ControlException ex) {
+                            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        cajaTextoError(ctPrecioCompra);
+                        JOptionPane.showMessageDialog(this, "Error en entrada", "Por favor ingrese un precio de compra", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    cajaTextoError(ctPrecioVenta);
+                    JOptionPane.showMessageDialog(this, "Error en entrada", "Por favor ingrese un precio de venta", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                cajaTextoError(ctDescripcion);
+                JOptionPane.showMessageDialog(this, "Error en entrada", "Por favor ingrese una descripcion", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            cajaTextoError(ctUpc);
+            JOptionPane.showMessageDialog(this, "Error en entrada", "Por favor ingrese un UPC", JOptionPane.ERROR_MESSAGE);
+        }
+
+
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private void botonCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMousePressed
@@ -370,8 +478,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
     private void botonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseClicked
         //Evento boton cancelar
         //Para mantene la consistencia de la interfaz primero se advierte al usuario sobre la acción
-        if(JOptionPane.showConfirmDialog(this, "Seguro que desea cancelar?", "Cancelar",
-                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION){
+        if (JOptionPane.showConfirmDialog(this, "Seguro que desea cancelar?", "Cancelar",
+                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
             this.limpiar();
         }
     }//GEN-LAST:event_botonCancelarMouseClicked
@@ -389,9 +497,17 @@ public class FormularioArticulo extends javax.swing.JFrame {
     private void botonNuevaCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonNuevaCategoriaMouseClicked
         //Código para crear una nueva categoría
         //Se pide la nueva descripción
-        JOptionPane.showInputDialog(this, "Ingrese la nueva categoría", "Nueva Categoría", JOptionPane.PLAIN_MESSAGE);
-        //Se realiza la inserción en la BD 
-        ///Se actualiza el comboBox
+        String categoria = JOptionPane.showInputDialog(this, "Ingrese la nueva categoría", "Nueva Categoría", JOptionPane.PLAIN_MESSAGE);
+        try {
+            //Se realiza la inserción en la BD
+            control.insertarCategoria(new Categoria(categoria));
+            ///Se actualiza el comboBox
+            this.setModeloCategoriasProveedores();
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_botonNuevaCategoriaMouseClicked
 
     private java.awt.Color colorAzul;
@@ -402,7 +518,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
     private javax.swing.JPanel botonGuardar;
     private javax.swing.JPanel botonNuevaCategoria;
     private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JComboBox<String> cmbProveedor;
+    private javax.swing.JComboBox<String> cmbProveedores;
     private javax.swing.JTextField ctDescripcion;
     private javax.swing.JTextField ctPrecioCompra;
     private javax.swing.JTextField ctPrecioVenta;
