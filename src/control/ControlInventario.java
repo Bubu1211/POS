@@ -130,4 +130,32 @@ public class ControlInventario extends Controlador {
         }
         return this.modeloTabla;
     }
+
+    public DefaultTableModel buscarArticulo(int criterio, String busqueda) throws ControlException {
+        this.modeloTabla = new DefaultTableModel();
+
+        try {
+            this.iniciarConexion();
+            this.articuloDao.setConexion(this.getConexion());
+        } catch (ControlException ex) {
+            throw new ControlException(ex.getMessage(), "Error asignando conexión ");
+        }
+
+        try {
+            var articulos = switch (criterio) {
+                case 0 -> articuloDao.buscarUpc(Integer.parseInt(busqueda));
+                case 1 -> articuloDao.buscarDescripcion(busqueda);
+                default -> null;
+            };
+            
+            this.llenarModeloTabla(articulos);
+            
+        } catch (DAOException ex) {
+            throw new ControlException(ex.getMessage(), "Error buscando artículo \n" + ex.getOrigen());
+        }finally{
+            this.cerrarConexion();
+        }
+
+        return this.modeloTabla;
+    }
 }

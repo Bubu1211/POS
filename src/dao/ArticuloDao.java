@@ -4,8 +4,6 @@ import datos.entidades.Articulo;
 import datos.entidades.Entidad;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utilidades.excepciones.DAOException;
 
 public class ArticuloDao extends Dao {
