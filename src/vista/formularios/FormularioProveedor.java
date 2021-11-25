@@ -1,15 +1,5 @@
 package vista.formularios;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Alexia
- */
 public class FormularioProveedor extends javax.swing.JFrame {
 
     /**
@@ -98,7 +88,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/insertar.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/insertar.png"))); // NOI18N
 
         javax.swing.GroupLayout botonGuardarLayout = new javax.swing.GroupLayout(botonGuardar);
         botonGuardar.setLayout(botonGuardarLayout);
@@ -115,9 +105,9 @@ public class FormularioProveedor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonGuardarLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(botonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(botonGuardarLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -153,7 +143,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cancelar.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/cancelar.png"))); // NOI18N
         jLabel7.setToolTipText("");
 
         javax.swing.GroupLayout botonCancelarLayout = new javax.swing.GroupLayout(botonCancelar);
@@ -240,9 +230,6 @@ public class FormularioProveedor extends javax.swing.JFrame {
         this.botonCancelar.setBackground(this.colorRojo);
     }//GEN-LAST:event_botonCancelarMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
     
     private java.awt.Color colorAzul;
     private java.awt.Color colorRojo;
