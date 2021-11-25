@@ -12,6 +12,8 @@ public class PanelReportes extends javax.swing.JPanel {
         this.colorVerde = new java.awt.Color(53,222,138);
         this.colorMorado = new java.awt.Color(149,37,255);
         this.colorTurquesa = new java.awt.Color(0,255,204);
+        
+        
     }
 
     @SuppressWarnings("unchecked")
