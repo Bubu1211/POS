@@ -22,6 +22,22 @@ public class Puesto extends Entidad {
         this.descripcion = descripcion;
         this.sueldo = sueldo;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public float getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(float sueldo) {
+        this.sueldo = sueldo;
+    }
     
     
     

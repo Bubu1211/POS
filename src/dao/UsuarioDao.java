@@ -127,4 +127,54 @@ public class UsuarioDao extends Dao {
         }
         return usuarios;
     }
+    
+    public Usuario buscarId(int id)throws DAOException{
+        Usuario usuario = new Usuario();
+        
+        statement = null;
+        resultSet = null;
+        
+        try{
+            statement = this.conexion.prepareStatement(BUSCAR_ID);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            usuario.setId(resultSet.getInt("idUsuario"));
+            usuario.setPassword(resultSet.getString("password"));
+            usuario.setNombre(resultSet.getString("nombre"));
+            usuario.setContacto(resultSet.getString("contacto"));
+            usuario.setIdPuesto(resultSet.getInt("idPuesto"));
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando el articulo por el id: " + id);
+        } finally {
+            statement = null;
+            resultSet = null;
+        }
+
+        return usuario;
+    }
+    
+    
+    public ArrayList<Usuario> buscarNombre(String nombre) throws DAOException{
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        
+        statement = null;
+        resultSet = null;
+        
+        try{
+            statement = this.conexion.prepareStatement(BUSCAR_NOMBRE);
+            statement.setString(1, nombre);
+            resultSet = statement.executeQuery();
+            for (Entidad e : this.listarResultSet()) {
+                Usuario a = (Usuario) e;
+                usuarios.add(a);
+            }
+        }catch (SQLException ex){
+        throw new DAOException(ex.getMessage(), "Error buscando el articulo por el nombre: " + nombre);
+    }finally{
+            statement = null;
+            resultSet = null;
+        }
+        return usuarios;
+    }
 }
