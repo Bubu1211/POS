@@ -1,9 +1,20 @@
 package vista.formularios;
 
+import control.ControlArticulos;
+import datos.entidades.Articulo;
 import javax.swing.JOptionPane;
 
 public class FormularioArticulo extends javax.swing.JFrame {
 
+    private ControlArticulos control;
+    
+    public FormularioArticulo(Articulo articulo){
+        this();
+        ///Pone los atributos en los campos de texto
+        
+        ///dESACTIVA el campo de texto de UPC ya que ya contiejne uno
+    }
+    
     public FormularioArticulo() {
         initComponents();
         colorAzul = new java.awt.Color(0, 183, 222);
@@ -11,6 +22,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
         colorVerde = new java.awt.Color(0, 204, 51);
         
         this.setLocationRelativeTo(null);
+        
+        control = new ControlArticulos();
     }
 
     @SuppressWarnings("unchecked")

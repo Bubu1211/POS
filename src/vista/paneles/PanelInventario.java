@@ -1,18 +1,34 @@
 package vista.paneles;
 
+import control.ControlInventario;
+import datos.entidades.Articulo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import utilidades.excepciones.ControlException;
 import vista.formularios.FormularioArticulo;
 import vista.formularios.FormularioPromocion;
 
 public class PanelInventario extends javax.swing.JPanel {
 
+    private ControlInventario control;
+    private Articulo articulo;
+
     public PanelInventario() {
         initComponents();
-        colorAzul = new java.awt.Color(0,183,225);
-        colorVerde = new java.awt.Color(0,235,150);
-        colorRojo = new java.awt.Color(229,70,72);
-        colorMorado = new java.awt.Color(155,81,224);
-        colorAmarillo = new java.awt.Color(255,204,0);
+        colorAzul = new java.awt.Color(0, 183, 225);
+        colorVerde = new java.awt.Color(0, 235, 150);
+        colorRojo = new java.awt.Color(229, 70, 72);
+        colorMorado = new java.awt.Color(155, 81, 224);
+        colorAmarillo = new java.awt.Color(255, 204, 0);
+
+        control = new ControlInventario();
+        try {
+            this.jtArticulos.setModel(control.listarArticulos());
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -42,10 +58,10 @@ public class PanelInventario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        btnOrdenar = new javax.swing.JButton();
+        cmbOrden = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtArticulos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(750, 445));
@@ -357,16 +373,16 @@ public class PanelInventario extends javax.swing.JPanel {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UPC", "Descripción", " " }));
 
-        jButton1.setText("Ordenar por:");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdenar.setText("Ordenar por:");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOrdenarActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Precio Compra", "Precio Venta", "Margen", "Existencia" }));
+        cmbOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Precio Compra", "Precio Venta", "Existencia" }));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -382,8 +398,13 @@ public class PanelInventario extends javax.swing.JPanel {
                 "IPC", "Descripción", "Categoría", "Proveedor", "Precio compra", "Precio Venta", "Margen", "Existencia"
             }
         ));
-        jTable2.setPreferredSize(new java.awt.Dimension(300, 10));
-        jScrollPane2.setViewportView(jTable2);
+        jtArticulos.setPreferredSize(new java.awt.Dimension(300, 10));
+        jtArticulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtArticulosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jtArticulos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -406,9 +427,9 @@ public class PanelInventario extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnOrdenar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
@@ -427,17 +448,25 @@ public class PanelInventario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOrdenar)
+                    .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+        try {
+            int criterio = this.cmbOrden.getSelectedIndex();
+            var modeloTabla = this.control.listarOrden(criterio);
+            this.jtArticulos.setModel(modeloTabla);
+
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "OPS...Ocurrio un error",
+                    ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnOrdenarActionPerformed
 
     private void botonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMouseClicked
         // Evento del boton agregar nuevo artículo
@@ -448,18 +477,35 @@ public class PanelInventario extends javax.swing.JPanel {
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
         // Evento de modificar el articulo seleccionado
         ///se necesita hacer un constructor con argumentos en la clase formularioArticulo para recibir un articulo
-        FormularioArticulo formularioArticulo = new FormularioArticulo();
-        formularioArticulo.setVisible(true);
+        if (articulo == null || jtArticulos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+                    "Debe seleccionar algun artículo", JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+        FormularioArticulo formularioArticulo = new FormularioArticulo(articulo);
+        formularioArticulo.setVisible(true); 
+        }
     }//GEN-LAST:event_botonModificarMouseClicked
 
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
         //Evento de boton eliminar
-        if(JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el artículo", "Eliminación",
-                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION){
-            
-            JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+        ///Si el artículo es nulo es que no hay nada seleccionado 
+        if (articulo == null || jtArticulos.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+                    "Debe seleccionar algun artículo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el artículo", "Eliminación",
+                    JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                try {
+                    this.control.eliminar(articulo.getId());
+                } catch (ControlException ex) {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+                            ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+                }
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_botonEliminarMouseClicked
 
@@ -524,6 +570,15 @@ public class PanelInventario extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Llenando tabla", "Datos de la BD", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_botonListarMouseClicked
 
+    private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
+        // TODO add your handling code here:
+        int row = this.jtArticulos.getSelectedRow();
+        articulo = new Articulo();
+        ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
+        ///de articulos el método buscar trae todos los datos 
+        articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
+    }//GEN-LAST:event_jtArticulosMouseClicked
+
     private java.awt.Color colorAzul;
     private java.awt.Color colorVerde;
     private java.awt.Color colorRojo;
@@ -535,9 +590,9 @@ public class PanelInventario extends javax.swing.JPanel {
     private javax.swing.JPanel botonListar;
     private javax.swing.JPanel botonModificar;
     private javax.swing.JPanel botonPromociones;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnOrdenar;
+    private javax.swing.JComboBox<String> cmbOrden;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -555,7 +610,7 @@ public class PanelInventario extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jtArticulos;
     // End of variables declaration//GEN-END:variables
 }
