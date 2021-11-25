@@ -64,6 +64,4 @@ public class Proveedor extends Entidad{
         this.tipo = tipo;
     }
 
-    
-    
 }

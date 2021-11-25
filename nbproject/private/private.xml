@@ -3,16 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/control/Controlador.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/dao/ArticuloCompraDao.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/dao/Dao.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/entidades/ArticuloVenta.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/control/ControlInventario.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/dao/ArticuloDao.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/entidades/Entidad.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/dao/ArticuloVentaDao.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/entidades/Articulo.java</file>
-            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/entidades/ArticuloCompra.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioArticulo.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Articulo.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Puesto.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Usuario.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/ArticuloCompra.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/ArticuloVenta.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/dao/UsuarioDao.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Compra.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Proveedor.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Venta.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Categoria.java</file>
+            <file>file:/C:/Repositorio%20POS/POS/src/datos/entidades/Entidad.java</file>
         </group>
     </open-files>
 </project-private>
