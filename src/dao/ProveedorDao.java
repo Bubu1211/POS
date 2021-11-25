@@ -90,12 +90,6 @@ public class ProveedorDao extends Dao{
         return tuplasAfectadas;
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     * @throws DAOException
-     */
     @Override
     public int eliminar(int id) throws DAOException {
         int tuplasAfectadas = 0;
