@@ -10,6 +10,11 @@ public class Controlador {
     
     protected Conexion conexion;
     protected DefaultTableModel modeloTabla;
+    
+    public Controlador(){
+        this.conexion = new Conexion();
+        this.modeloTabla = new DefaultTableModel();
+    }
 
     public DefaultTableModel getModeloTabla() {
         return modeloTabla;
