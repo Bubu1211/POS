@@ -44,7 +44,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         ctPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btIS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -77,11 +77,11 @@ public class InicioDeSesion extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/Botón IDS.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btIS.setBackground(new java.awt.Color(51, 204, 255));
+        btIS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/Botón IDS.png"))); // NOI18N
+        btIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btISActionPerformed(evt);
             }
         });
 
@@ -105,7 +105,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btIS, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 47, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -122,7 +122,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ctPassword))
                 .addGap(28, 28, 28)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btIS, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -183,7 +183,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
 //        }
 //    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btISActionPerformed
 //
 //        Conexion conexion = new Conexion();
 //        UsuarioDao usuarioDao = new UsuarioDao();
@@ -246,7 +246,7 @@ public class InicioDeSesion extends javax.swing.JFrame {
 //            ventana.setVisible(true);
 //            this.dispose();
 //        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btISActionPerformed
 
     private void ctPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPasswordActionPerformed
         // TODO add your handling code here:
@@ -254,9 +254,9 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btIS;
     private javax.swing.JPasswordField ctPassword;
     private javax.swing.JTextField ctUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

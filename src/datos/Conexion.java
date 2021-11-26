@@ -9,9 +9,9 @@ public class Conexion {
 
     private Connection conexion;
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/TiendaCedalex?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private final String URL = "jdbc:mysql://localhost:3306/tiendacedalex?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private final String USER = "root";
-    private final String PASS = "admin";
+    private final String PASS = "123456";
 
     ///Solo crea la conexion 
     public void iniciarConexion() throws BDException {
