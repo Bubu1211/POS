@@ -23,6 +23,8 @@ public class PanelInventario extends javax.swing.JPanel {
         colorAmarillo = new java.awt.Color(255, 204, 0);
 
         control = new ControlInventario();
+        listar();
+        
         try {
             this.jtArticulos.setModel(control.listarArticulos());
         } catch (ControlException ex) {
@@ -389,15 +391,7 @@ public class PanelInventario extends javax.swing.JPanel {
 
         jtArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "IPC", "Descripción", "Categoría", "Proveedor", "Precio compra", "Precio Venta", "Margen", "Existencia"
@@ -574,6 +568,10 @@ public class PanelInventario extends javax.swing.JPanel {
     }//GEN-LAST:event_botonPromocionesMouseClicked
 
     private void botonListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonListarMouseClicked
+        listar();
+    }//GEN-LAST:event_botonListarMouseClicked
+
+    private void listar(){
         try {
             ///Evento de boton listar, debe llenar la tabla
             var modeloTabla = this.control.listarArticulos();
@@ -582,8 +580,8 @@ public class PanelInventario extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botonListarMouseClicked
-
+    }
+    
     private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
         // TODO add your handling code here:
         int row = this.jtArticulos.getSelectedRow();
@@ -591,6 +589,11 @@ public class PanelInventario extends javax.swing.JPanel {
         ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
         ///de articulos el método buscar trae todos los datos 
         articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
+        articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
+        articulo.setIdCategoria(Integer.parseInt(jtArticulos.getValueAt(row, 2).toString()));
+        articulo.setIdProveedor(Integer.parseInt(jtArticulos.getValueAt(row, 3).toString()));
+        articulo.setPrecioCompra(Float.parseFloat(jtArticulos.getValueAt(row, 4).toString()));
+        articulo.setPrecioVenta(Float.parseFloat(jtArticulos.getValueAt(row, 5).toString()));
     }//GEN-LAST:event_jtArticulosMouseClicked
 
     private void ctBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctBusquedaKeyPressed

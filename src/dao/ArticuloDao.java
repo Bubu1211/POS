@@ -15,7 +15,6 @@ public class ArticuloDao extends Dao {
             + "precioCompra = ?, precioVenta = ?, existencia = ? WHERE idArticulo = ?";
     private static final String DELETE = "DELETE FROM articulos WHERE idArticulo = ?";
     private static final String BUSCAR_UPC = "SELECT * FROM articulos WHERE idArticulo = ?";
-    private static final String BUSCAR_DESCRIPCION = "SELECT * FROM articulos WHERE descripcion LIKE '?%'";
     private static final String EXISTENCIA = "SELECT existencia FROM articulos WHERE idArticulo = ?";
     private static final String UPDATE_EXISTENCIA = "UPDATE articulos SET existencia = ? WHERE idArticulo = ?";
     private static final String SELECT_BY_PRECIO_COMPRA = "SELECT * FROM articulos ORDER BY precioCompra DESC";
@@ -136,7 +135,7 @@ public class ArticuloDao extends Dao {
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error listando el resultSet");
-        }finally{
+        } finally {
             resultSet = null;
         }
         return articulos;
@@ -170,12 +169,13 @@ public class ArticuloDao extends Dao {
     public ArrayList<Articulo> buscarDescripcion(String descripcion) throws DAOException {
         ArrayList<Articulo> articulos = new ArrayList<Articulo>();
 
+        String BUSCAR_DESCRIPCION = "SELECT * FROM articulos WHERE descripcion LIKE '" + descripcion +"%'";
+
         statement = null;
         resultSet = null;
 
         try {
             statement = this.conexion.prepareStatement(BUSCAR_DESCRIPCION);
-            statement.setString(1, descripcion);
             resultSet = statement.executeQuery();
             for (Entidad e : this.listarResultSet()) {
                 Articulo a = (Articulo) e;
@@ -249,128 +249,128 @@ public class ArticuloDao extends Dao {
         }
         return tuplasAfectadas;
     }
-    
-    public ArrayList<Articulo> listarPrecioCompra() throws DAOException{
+
+    public ArrayList<Articulo> listarPrecioCompra() throws DAOException {
         ArrayList<Articulo> articulos = new ArrayList<Articulo>();
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(SELECT_BY_PRECIO_COMPRA);
             resultSet = statement.executeQuery();
-            for(Entidad e : this.listarResultSet()){
-                Articulo a = (Articulo)e;
+            for (Entidad e : this.listarResultSet()) {
+                Articulo a = (Articulo) e;
                 articulos.add(a);
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al ordenar por precio compra en DAO");
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "Error al ordenar por precio Compra en Dao\n"+ex.getOrigen());
-        }finally{
+            throw new DAOException(ex.getMessage(), "Error al ordenar por precio Compra en Dao\n" + ex.getOrigen());
+        } finally {
             statement = null;
             resultSet = null;
         }
-        
+
         return articulos;
     }
-    
-    public ArrayList<Articulo> listarPrecioVenta() throws DAOException{
+
+    public ArrayList<Articulo> listarPrecioVenta() throws DAOException {
         ArrayList<Articulo> articulos = new ArrayList<Articulo>();
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(SELECT_BY_PRECIOVENTA);
             resultSet = statement.executeQuery();
-            for(Entidad e : this.listarResultSet()){
-                Articulo a = (Articulo)e;
+            for (Entidad e : this.listarResultSet()) {
+                Articulo a = (Articulo) e;
                 articulos.add(a);
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al ordenar por precio venta en DAO");
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "Error al ordenar por precio venta en Dao\n"+ex.getOrigen());
-        }finally{
+            throw new DAOException(ex.getMessage(), "Error al ordenar por precio venta en Dao\n" + ex.getOrigen());
+        } finally {
             statement = null;
             resultSet = null;
         }
-        
+
         return articulos;
     }
-    
-    public ArrayList<Articulo> listarExistencia() throws DAOException{
+
+    public ArrayList<Articulo> listarExistencia() throws DAOException {
         ArrayList<Articulo> articulos = new ArrayList<Articulo>();
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(SELECT_BY_EXISTENCIA);
             resultSet = statement.executeQuery();
-            for(Entidad e : this.listarResultSet()){
-                Articulo a = (Articulo)e;
+            for (Entidad e : this.listarResultSet()) {
+                Articulo a = (Articulo) e;
                 articulos.add(a);
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al ordenar por existencia en DAO");
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "Error al ordenar por existencia en Dao\n"+ex.getOrigen());
-        }finally{
+            throw new DAOException(ex.getMessage(), "Error al ordenar por existencia en Dao\n" + ex.getOrigen());
+        } finally {
             statement = null;
             resultSet = null;
         }
-        
+
         return articulos;
     }
-    
-    public ArrayList<Articulo> listarNegativas() throws DAOException{
+
+    public ArrayList<Articulo> listarNegativas() throws DAOException {
         var articulos = new ArrayList<Articulo>();
-        
+
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(SELECT_NEGATIVAS);
             resultSet = statement.executeQuery();
-            
-            for( Entidad e: this.listarResultSet()){
-                Articulo a = (Articulo)e;
+
+            for (Entidad e : this.listarResultSet()) {
+                Articulo a = (Articulo) e;
                 articulos.add(a);
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al obtener negativas en Dao");
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "Error al obtener listado de negativas en Dao \n"+ex.getOrigen());
-        }finally{
+            throw new DAOException(ex.getMessage(), "Error al obtener listado de negativas en Dao \n" + ex.getOrigen());
+        } finally {
             statement = null;
             resultSet = null;
         }
-        
+
         return articulos;
     }
-    
-    public ArrayList<Articulo> listarAgotados() throws DAOException{
+
+    public ArrayList<Articulo> listarAgotados() throws DAOException {
         var articulos = new ArrayList<Articulo>();
-        
+
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(SELECT_AGOTADOS);
             resultSet = statement.executeQuery();
-            
-            for( Entidad e: this.listarResultSet()){
-                Articulo a = (Articulo)e;
+
+            for (Entidad e : this.listarResultSet()) {
+                Articulo a = (Articulo) e;
                 articulos.add(a);
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al obtener AGOTADOS en Dao");
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "Error al obtener listado de agotados en Dao \n"+ex.getOrigen());
-        }finally{
+            throw new DAOException(ex.getMessage(), "Error al obtener listado de agotados en Dao \n" + ex.getOrigen());
+        } finally {
             statement = null;
             resultSet = null;
         }
-        
+
         return articulos;
     }
-} 
+}
