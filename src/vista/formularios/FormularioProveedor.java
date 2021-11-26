@@ -319,10 +319,11 @@ public class FormularioProveedor extends javax.swing.JFrame {
         //poner al proveedor fecha
         //convertir a java sql
         
-        String diaEntrega = jDate.getDateFormatString();
+        java.util.Date diaEntrega = jDate.getDate();
+        long dE = diaEntrega.getTime();
+        java.sql.Date fecha = new java.sql.Date(dE);
         
-//        long dE = diaEntrega.getTime();
-//        java.sql.Date fecha = new java.sql.Date(dE)
+        proveedor.setDiaEntrega(fecha);
         
         if (modificar) {
 
