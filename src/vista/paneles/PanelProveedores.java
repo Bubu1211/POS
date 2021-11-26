@@ -259,6 +259,11 @@ public class PanelProveedores extends javax.swing.JPanel {
                 jtProveedoresMouseClicked(evt);
             }
         });
+        jtProveedores.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtProveedoresKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtProveedores);
 
         cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "Nombre" }));
@@ -397,7 +402,6 @@ public class PanelProveedores extends javax.swing.JPanel {
             //evento agregar nuevo proveedor
             FormularioProveedor formularioProveedor = new FormularioProveedor();
             formularioProveedor.setVisible(true);
-            proveedor = null;
 
     }//GEN-LAST:event_botonAgregarMouseClicked
 
@@ -456,15 +460,20 @@ public class PanelProveedores extends javax.swing.JPanel {
         ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
         ///de articulos el método buscar trae todos los datos 
         proveedor.setId(Integer.parseInt(String.valueOf(jtProveedores.getValueAt(row, 0))));
+        //todo
     }//GEN-LAST:event_jtProveedoresMouseClicked
 
     private void ctBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMouseClicked
-        
+
     }//GEN-LAST:event_ctBusquedaMouseClicked
 
     private void ctBusquedaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMousePressed
+        
+    }//GEN-LAST:event_ctBusquedaMousePressed
+
+    private void jtProveedoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtProveedoresKeyPressed
         // TODO add your handling code here:
-        if (10 == evt.getKeyCode()) {
+        if (evt.getKeyCode() ==10) {
             String busqueda = ctBusqueda.getText();
             try {
                 this.jtProveedores.setModel(this.control.buscarProveedor(cmbBusqueda.getSelectedIndex(), busqueda));
@@ -473,7 +482,7 @@ public class PanelProveedores extends javax.swing.JPanel {
                         ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_ctBusquedaMousePressed
+    }//GEN-LAST:event_jtProveedoresKeyPressed
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorRojo;

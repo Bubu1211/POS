@@ -43,13 +43,13 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="ctContacto" alignment="0" max="32767" attributes="0"/>
-                  <Component id="cmbTipo" alignment="0" pref="339" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="botonGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="botonCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jDate" alignment="0" max="32767" attributes="0"/>
+                  <Component id="ctTipo" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -69,9 +69,9 @@
               <Component id="ctContacto" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="cmbTipo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Component id="ctTipo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jDate" min="-2" max="-2" attributes="0"/>
@@ -113,20 +113,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Tipo"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="cmbTipo">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Tipo"/>
-            <StringItem index="1" value="Directo"/>
-            <StringItem index="2" value="Indirecto"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
@@ -352,6 +338,8 @@
       </SubComponents>
     </Container>
     <Component class="com.toedter.calendar.JDateChooser" name="jDate">
+    </Component>
+    <Component class="javax.swing.JTextField" name="ctTipo">
     </Component>
   </SubComponents>
 </Form>
