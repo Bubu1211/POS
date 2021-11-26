@@ -1,8 +1,11 @@
 package vista.paneles;
 
 import control.ControlProveedores;
+import dao.ProveedorDao;
+import datos.Conexion;
 import datos.entidades.Proveedor;
 import javax.swing.JOptionPane;
+import utilidades.excepciones.BDException;
 import utilidades.excepciones.ControlException;
 import vista.formularios.FormularioProveedor;
 
@@ -10,17 +13,22 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     private ControlProveedores control;
     private Proveedor proveedor;
-    
+
     public PanelProveedores() {
         initComponents();
-        colorRojo = new java.awt.Color(204,0,0);
-        colorAzul = new java.awt.Color(0,204,204);
-        colorVerde = new java.awt.Color(51,255,0);
-        colorAmarillo = new java.awt.Color(255,204,0);
-        
+        colorRojo = new java.awt.Color(204, 0, 0);
+        colorAzul = new java.awt.Color(0, 204, 204);
+        colorVerde = new java.awt.Color(51, 255, 0);
+        colorAmarillo = new java.awt.Color(255, 204, 0);
+
         control = new ControlProveedores();
-        
-        
+        try {
+            this.jtProveedores.setModel(control.listarProveedores());
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -39,10 +47,10 @@ public class PanelProveedores extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        ctBuscar = new javax.swing.JTextField();
+        ctBusqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProveedores = new javax.swing.JTable();
-        cmbBuscar = new javax.swing.JComboBox<>();
+        cmbBusqueda = new javax.swing.JComboBox<>();
         botonListar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
@@ -50,6 +58,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(750, 445));
 
         botonAgregar.setBackground(new java.awt.Color(0, 204, 204));
+        botonAgregar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonAgregarMouseClicked(evt);
@@ -78,9 +87,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/insertar.png"))); // NOI18N
@@ -107,6 +114,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         );
 
         botonModificar.setBackground(new java.awt.Color(51, 255, 0));
+        botonModificar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonModificarMouseClicked(evt);
@@ -161,6 +169,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         );
 
         botonEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        botonEliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonEliminarMouseClicked(evt);
@@ -191,8 +200,8 @@ public class PanelProveedores extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/eliminar.png"))); // NOI18N
@@ -217,15 +226,27 @@ public class PanelProveedores extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        ctBuscar.setText("Buscar");
-        ctBuscar.addActionListener(new java.awt.event.ActionListener() {
+        ctBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ctBusquedaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ctBusquedaMousePressed(evt);
+            }
+        });
+        ctBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ctBuscarActionPerformed(evt);
+                ctBusquedaActionPerformed(evt);
             }
         });
 
         jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -235,11 +256,17 @@ public class PanelProveedores extends javax.swing.JPanel {
                 "Id", "Nombre", "Tipo", "Contácto", "Fecha de entrega"
             }
         ));
+        jtProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtProveedoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtProveedores);
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "Nombre" }));
+        cmbBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "Nombre" }));
 
         botonListar.setBackground(new java.awt.Color(255, 204, 0));
+        botonListar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonListarMouseClicked(evt);
@@ -302,12 +329,12 @@ public class PanelProveedores extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ctBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
                         .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,8 +346,8 @@ public class PanelProveedores extends javax.swing.JPanel {
                     .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ctBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
@@ -331,9 +358,9 @@ public class PanelProveedores extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ctBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctBuscarActionPerformed
+    private void ctBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctBusquedaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ctBuscarActionPerformed
+    }//GEN-LAST:event_ctBusquedaActionPerformed
 
     private void botonAgregarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMousePressed
         this.botonAgregar.setBackground(java.awt.Color.GRAY);
@@ -368,33 +395,87 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_botonListarMouseReleased
 
     private void botonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMouseClicked
-        //evento agregar nuevo proveedor
-        FormularioProveedor formularioProveedor = new FormularioProveedor();
-        formularioProveedor.setVisible (true);
+        
+            //evento agregar nuevo proveedor
+            FormularioProveedor formularioProveedor = new FormularioProveedor();
+            formularioProveedor.setVisible(true);
+            proveedor = null;
+
     }//GEN-LAST:event_botonAgregarMouseClicked
 
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
+       
         // Evento de modificar el provvedor seleccionado
         ///se necesita hacer un constructor con argumentos en la clase formularioProveedor para recibir un proveedor
-        FormularioProveedor formularioProveedor = new FormularioProveedor();
-        formularioProveedor.setVisible (true);
+        if (proveedor == null || jtProveedores.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al modificar",
+                    "Debe selecionar algun artículo", JOptionPane.ERROR_MESSAGE);
+        } else {
+            FormularioProveedor formularioProveedor = new FormularioProveedor();
+            formularioProveedor.setVisible(true);
+        }
+        proveedor = null;
+        
     }//GEN-LAST:event_botonModificarMouseClicked
 
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
-        if(JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el proveedor", "Eliminación",
-                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION){
-            
-            JOptionPane.showMessageDialog(this, "Se ha eliminado el proveedor", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+        if (proveedor == null || jtProveedores.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+                    "Debe seleccionar algun proveedor", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el proveedor", "Eliminación",
+                    JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                try {
+                    this.control.eliminarProveedor(proveedor.getId());
+                    JOptionPane.showMessageDialog(this, "Se ha eliminado el proveedor", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+                } catch (ControlException ex) {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
+                            ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
-        
+
     }//GEN-LAST:event_botonEliminarMouseClicked
 
     private void botonListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonListarMouseClicked
         // evento listar, llenar tabla
-        JOptionPane.showMessageDialog(this, "Llenando tabla", "Datos de la BD", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            ///Evento de boton listar, debe llenar la tabla
+            var modeloTabla = this.control.listarProveedores();
+            this.jtProveedores.setModel(modeloTabla);
+        } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonListarMouseClicked
+
+    private void jtProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProveedoresMouseClicked
+        // TODO add your handling code here:
+        int row = this.jtProveedores.getSelectedRow();
+        proveedor = new Proveedor();
+        ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
+        ///de articulos el método buscar trae todos los datos 
+        proveedor.setId(Integer.parseInt(String.valueOf(jtProveedores.getValueAt(row, 0))));
+    }//GEN-LAST:event_jtProveedoresMouseClicked
+
+    private void ctBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMouseClicked
+        
+    }//GEN-LAST:event_ctBusquedaMouseClicked
+
+    private void ctBusquedaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMousePressed
+        // TODO add your handling code here:
+        if (10 == evt.getKeyCode()) {
+            String busqueda = ctBusqueda.getText();
+            try {
+                this.jtProveedores.setModel(this.control.buscarProveedor(cmbBusqueda.getSelectedIndex(), busqueda));
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al buscar",
+                        ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ctBusquedaMousePressed
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorRojo;
@@ -405,8 +486,8 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JPanel botonEliminar;
     private javax.swing.JPanel botonListar;
     private javax.swing.JPanel botonModificar;
-    private javax.swing.JComboBox<String> cmbBuscar;
-    private javax.swing.JTextField ctBuscar;
+    private javax.swing.JComboBox<String> cmbBusqueda;
+    private javax.swing.JTextField ctBusqueda;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

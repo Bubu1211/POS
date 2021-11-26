@@ -15,6 +15,7 @@ public class UsuarioDao extends Dao {
     private static final String DELETE = "DELETE FROM usuarios WHERE idUsuario = ?";
     private static final String BUSCAR_ID = "SELECT * FROM usuarios WHERE idUsuario = ?";
     private static final String BUSCAR_NOMBRE = "SELECT * FROM usuarios WHERE nombre LIKE '?%'";
+    private static final String BUSCAR_UNO = "SELECT * FROM usuarios WHERE nombre ?%";
 
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
@@ -176,5 +177,32 @@ public class UsuarioDao extends Dao {
             resultSet = null;
         }
         return usuarios;
+    }
+    
+    public Usuario bucarUno(String nombre) throws DAOException {
+        Usuario usuario = new Usuario();
+
+        statement = null;
+        resultSet = null;
+
+        try {
+            statement = this.conexion.prepareStatement(BUSCAR_UNO);
+            statement.setString(1, nombre);
+            resultSet = statement.executeQuery();
+
+            usuario.setId(resultSet.getInt("idUsuario"));
+            usuario.setPassword(resultSet.getString("password"));
+            usuario.setNombre(resultSet.getString("nombre"));
+            usuario.setContacto(resultSet.getString("contacto"));
+            usuario.setIdPuesto(resultSet.getInt("id Puesto"));
+
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando el usuario por el nombre: " + nombre);
+        } finally {
+            statement = null;
+            resultSet = null;
+        }
+
+        return usuario;
     }
 }

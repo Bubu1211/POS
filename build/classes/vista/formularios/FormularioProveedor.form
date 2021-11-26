@@ -43,7 +43,7 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="ctContacto" alignment="0" max="32767" attributes="0"/>
-                  <Component id="ctTipo" alignment="0" pref="339" max="32767" attributes="0"/>
+                  <Component id="cmbTipo" alignment="0" pref="339" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="botonGuardar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -70,7 +70,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="ctTipo" min="-2" max="-2" attributes="0"/>
+              <Component id="cmbTipo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -114,7 +114,7 @@
         <Property name="text" type="java.lang.String" value="Tipo"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="ctTipo">
+    <Component class="javax.swing.JComboBox" name="cmbTipo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -148,6 +148,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGuardarMouseClicked"/>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGuardarMousePressed"/>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botonGuardarMouseReleased"/>
       </Events>

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import utilidades.excepciones.DAOException;
 
 public class CategoriaDao extends Dao {
-    
+
     private static final String SELECT = "SELECT * FROM categoria";
     private static final String INSERT = "INSERT INTO categoria(descripcion) VALUES(?) ";
+    private static final String BUSCAR_ID = "SELECT * FROM categoria WHERE idCategoria = ?";
     private static final String DELETE = "DELETE FROM categoria WHERE idCategoria = ?";
-
 
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
@@ -88,7 +88,30 @@ public class CategoriaDao extends Dao {
         } finally {
             resultSet = null;
         }
-        return categorias; 
+        return categorias;
     }
 
+    public Categoria bucarUno(int id) throws DAOException {
+        Categoria categoria = new Categoria();
+
+        statement = null;
+        resultSet = null;
+
+        try {
+            statement = this.conexion.prepareStatement(BUSCAR_ID);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            categoria.setId(resultSet.getInt("idCategoria"));
+            categoria.setDescripcion(resultSet.getString("descripcion"));
+
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando la categoria por el id: " + id);
+        } finally {
+            statement = null;
+            resultSet = null;
+        }
+
+        return categoria;
+    }
 }
