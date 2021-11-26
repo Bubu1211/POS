@@ -419,14 +419,17 @@ public class FormularioArticulo extends javax.swing.JFrame {
                 if (!precioVentaString.isEmpty()) {
                     if (!precioCompraString.isEmpty()) {
 
-                        articulo.setDescripcion(descripcionString);
-                        
                         try {
                             articulo.setId(Integer.parseInt(upcString));
                             articulo.setPrecioCompra(Float.parseFloat(precioCompraString));
                             articulo.setPrecioVenta(Float.parseFloat(precioVentaString));
 
                             try {
+                                articulo.setDescripcion(descripcionString);
+                                String itemProveedor = cmbProveedores.getItemAt(cmbProveedores.getSelectedIndex());
+                                String itemCategoria = cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex());
+                                control.buscarProveedorCategoria(itemProveedor, itemCategoria);
+                                
                                 //EVENTO DEL BOTON GUARDAR
                                 if (modificar) {
                                     this.control.modificarArticulo(articulo);
