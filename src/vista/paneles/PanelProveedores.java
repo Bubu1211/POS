@@ -246,13 +246,13 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Id", "Nombre", "Tipo", "Contácto", "Fecha de entrega"
             }
         ));
+        jtProveedores.setPreferredSize(new java.awt.Dimension(375, 100));
         jtProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtProveedoresMouseClicked(evt);
