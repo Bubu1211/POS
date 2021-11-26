@@ -216,8 +216,8 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
 //                String sqlNombre = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
 //                String sqlPass = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
-                usuarioDao.buscarNombre(usuario);
-                Usuario user = usuarioDao.bucarUno(usuario);
+//                usuarioDao.buscarNombre(usuario);
+                Usuario user = usuarioDao.buscarUno(usuario);
                 String password = String.valueOf(ctPassword.getText());
 //                usuarioDao.buscarId(Integer.parseInt(password));
 //                Statement st = conexion.createStatement();
