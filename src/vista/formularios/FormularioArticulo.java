@@ -419,33 +419,34 @@ public class FormularioArticulo extends javax.swing.JFrame {
                 if (!precioVentaString.isEmpty()) {
                     if (!precioCompraString.isEmpty()) {
 
+                        articulo.setDescripcion(descripcionString);
+                        
                         try {
                             articulo.setId(Integer.parseInt(upcString));
                             articulo.setPrecioCompra(Float.parseFloat(precioCompraString));
                             articulo.setPrecioVenta(Float.parseFloat(precioVentaString));
+
+                            try {
+                                //EVENTO DEL BOTON GUARDAR
+                                if (modificar) {
+                                    this.control.modificarArticulo(articulo);
+                                    JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+                                } else {
+                                    this.control.insertarArticulo(articulo);
+                                    JOptionPane.showMessageDialog(this, "El artículo se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+                                }
+
+                            } catch (ControlException ex) {
+                                JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),
+                                        "Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
+                            }
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(this, "Error al obtener valores numéricos", "Por favor verifique las entradas", JOptionPane.ERROR_MESSAGE);
                             cajaTextoError(ctUpc);
                             cajaTextoError(ctPrecioCompra);
                             cajaTextoError(ctPrecioVenta);
-                        }
-
-                        try {
-                            //EVENTO DEL BOTON GUARDAR
-                            if (modificar) {
-                                articulo.setDescripcion(descripcionString);
-                                this.control.modificarArticulo(articulo);
-                                JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-
-                            } else {
-                                this.control.insertarArticulo(articulo);
-                                JOptionPane.showMessageDialog(this, "El artículo se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-
-                            }
-
-                        } catch (ControlException ex) {
-                            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
-                                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
                         }
                     } else {
                         cajaTextoError(ctPrecioCompra);
@@ -506,8 +507,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
             ///Se actualiza el comboBox
             this.setModeloCategoriasProveedores();
         } catch (ControlException ex) {
-            JOptionPane.showMessageDialog(this, 
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),"Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), "Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_botonNuevaCategoriaMouseClicked
