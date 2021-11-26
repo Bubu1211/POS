@@ -11,7 +11,11 @@ public class Conexion {
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String URL = "jdbc:mysql://localhost:3306/tiendacedalex?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private final String USER = "root";
+<<<<<<< HEAD
     private final String PASS = "Iuy7643mm+";
+=======
+    private final String PASS = "admin";
+>>>>>>> 7842258501e7627016047d851ac48983448cd81a
 
 
 

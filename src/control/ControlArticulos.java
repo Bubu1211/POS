@@ -8,6 +8,8 @@ import datos.entidades.Categoria;
 import datos.entidades.Entidad;
 import datos.entidades.Proveedor;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilidades.excepciones.ControlException;
 import utilidades.excepciones.DAOException;
 
@@ -18,6 +20,8 @@ public class ControlArticulos extends Controlador {
     private CategoriaDao categoriaDao;
     private ArrayList<String> categorias;
     private ArrayList<String> proveedores;
+    private Proveedor proveedor;
+    private Categoria categoria;
     
     public ControlArticulos(){
         articuloDao = new ArticuloDao();
@@ -145,6 +149,26 @@ public class ControlArticulos extends Controlador {
             }
         } catch (DAOException ex) {
             throw new ControlException(ex.getMessage(), "Error al insertar nueva categoria "+ex.getOrigen());
+        }finally{
+            this.cerrarConexion();
+        }
+    }
+    
+    public void buscarProveedorCategoria(String nombreProveedor, String descripcionCategoria) throws ControlException{
+        
+        try{
+            this.iniciarConexion();
+            proveedorDao.setConexion(this.getConexion());
+            categoriaDao.setConexion(this.getConexion());
+        } catch (ControlException ex) {
+            throw new ControlException(ex.getMessage(), "Error al buscar un Proveedor "+ex.getOrigen());
+        }
+        
+        try {
+            this.proveedor = proveedorDao.buscarNombre(nombreProveedor).get(0);
+            //this.categoria = categoriaDao.buscarDescripcion(descripcionCategoria);
+        } catch (DAOException ex) {
+            throw new ControlException(ex.getMessage(), "Error al buscar un Proveedor "+ex.getOrigen());
         }finally{
             this.cerrarConexion();
         }

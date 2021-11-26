@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioArticulo.java</file>
             <file>file:/C:/Repositorio%20POS/POS/src/control/ControlProveedores.java</file>
             <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioUsuario.java</file>
@@ -13,6 +14,11 @@
             <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioProveedor.java</file>
             <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelInventario.java</file>
             <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelProveedores.java</file>
+=======
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/pos/POS.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/Conexion.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/vista/InicioDeSesion.java</file>
+>>>>>>> 7842258501e7627016047d851ac48983448cd81a
         </group>
     </open-files>
 </project-private>
