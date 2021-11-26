@@ -13,6 +13,8 @@ public class Conexion {
     private final String USER = "root";
     private final String PASS = "123456";
 
+
+
     ///Solo crea la conexion 
     public void iniciarConexion() throws BDException {
 

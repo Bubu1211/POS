@@ -5,7 +5,6 @@
  */
 package vista;
 
-
 import dao.UsuarioDao;
 import datos.Conexion;
 import datos.entidades.Usuario;
@@ -79,6 +78,11 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
         btIS.setBackground(new java.awt.Color(51, 204, 255));
         btIS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/Botón IDS.png"))); // NOI18N
+        btIS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btISMouseClicked(evt);
+            }
+        });
         btIS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btISActionPerformed(evt);
@@ -218,15 +222,14 @@ public class InicioDeSesion extends javax.swing.JFrame {
 //                usuarioDao.buscarId(Integer.parseInt(password));
 //                Statement st = conexion.createStatement();
 //                ResultSet rs = st.executeQuery(sql);
-                if(user.getPassword().equals(password)){
+                if (user.getPassword().equals(password)) {
                     VentanaPrincipal ventana = new VentanaPrincipal();
                     ventana.setVisible(true);
                     this.dispose();
-                }else{
-                    
+                } else {
+
                     JOptionPane.showMessageDialog(null, "La contraseña o usuario ingresado no son validos.");
                 }
-                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
@@ -251,6 +254,11 @@ public class InicioDeSesion extends javax.swing.JFrame {
     private void ctPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ctPasswordActionPerformed
+
+    private void btISMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btISMouseClicked
+
+//
+    }//GEN-LAST:event_btISMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

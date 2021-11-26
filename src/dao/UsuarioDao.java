@@ -15,8 +15,8 @@ public class UsuarioDao extends Dao {
     private static final String DELETE = "DELETE FROM usuarios WHERE idUsuario = ?";
     private static final String BUSCAR_ID = "SELECT * FROM usuarios WHERE idUsuario = ?";
     private static final String BUSCAR_NOMBRE = "SELECT * FROM usuarios WHERE nombre LIKE '?%'";
-    private static final String BUSCAR_UNO = "SELECT * FROM usuarios WHERE nombre ?%";
-
+    private static final String BUSCAR_UNO = "SELECT * FROM usuarios WHERE nombre  = ?";
+    
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
         ArrayList<Entidad> usuarios = new ArrayList<Entidad>(); ///Lista donde se recuperaran los proveedores
@@ -194,7 +194,7 @@ public class UsuarioDao extends Dao {
             usuario.setPassword(resultSet.getString("password"));
             usuario.setNombre(resultSet.getString("nombre"));
             usuario.setContacto(resultSet.getString("contacto"));
-            usuario.setIdPuesto(resultSet.getInt("id Puesto"));
+            usuario.setIdPuesto(resultSet.getInt("idPuesto"));
 
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error buscando el usuario por el nombre: " + nombre);
