@@ -102,7 +102,7 @@ public class CategoriaDao extends Dao {
             statement = this.conexion.prepareStatement(BUSCAR_ID);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-
+            resultSet.next();
             categoria.setId(resultSet.getInt("idCategoria"));
             categoria.setDescripcion(resultSet.getString("descripcion"));
 
@@ -115,8 +115,8 @@ public class CategoriaDao extends Dao {
 
         return categoria;
     }
-    
-public Categoria bucarDescripcion(String descripcion) throws DAOException {
+
+    public Categoria bucarDescripcion(String descripcion) throws DAOException {
         Categoria categoria = new Categoria();
 
         statement = null;
@@ -140,5 +140,3 @@ public Categoria bucarDescripcion(String descripcion) throws DAOException {
         return categoria;
     }
 }
-
-
