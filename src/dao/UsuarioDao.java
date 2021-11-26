@@ -179,7 +179,7 @@ public class UsuarioDao extends Dao {
         return usuarios;
     }
     
-    public Usuario bucarUno(String nombre) throws DAOException {
+    public Usuario buscarUno(String nombre) throws DAOException {
         Usuario usuario = new Usuario();
 
         statement = null;
@@ -190,6 +190,7 @@ public class UsuarioDao extends Dao {
             statement.setString(1, nombre);
             resultSet = statement.executeQuery();
 
+            resultSet.next();
             usuario.setId(resultSet.getInt("idUsuario"));
             usuario.setPassword(resultSet.getString("password"));
             usuario.setNombre(resultSet.getString("nombre"));
