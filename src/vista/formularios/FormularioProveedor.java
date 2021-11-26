@@ -26,6 +26,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
         ctContacto.setText(proveedor.getContacto());
         ctTipo.setText(proveedor.getTipo());
         jDate.setDate(proveedor.getDiaEntrega());
+        ctNombre.setEditable(false);///
     }
 
     public FormularioProveedor() {
@@ -301,6 +302,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarMouseReleased
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+<<<<<<< HEAD
         proveedor = new Proveedor();
         proveedor.setNombre(ctNombre.getText());
         
@@ -313,6 +315,9 @@ public class FormularioProveedor extends javax.swing.JFrame {
                 control.insertarProveedor(proveedor);
             
         }
+=======
+
+>>>>>>> 134ca9e06e20dbfacda84df8b24f90afabec8023
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private java.awt.Color colorAzul;

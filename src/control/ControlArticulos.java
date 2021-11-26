@@ -29,7 +29,7 @@ public class ControlArticulos extends Controlador {
         categorias = new ArrayList<String>();
         
         try {
-            for (Entidad e : proveedorDao.listar()) {
+            for (Entidad e : categoriaDao.listar()) {
                 Categoria p = (Categoria) e;
                 categorias.add(p.getDescripcion());
             }

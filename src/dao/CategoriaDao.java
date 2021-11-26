@@ -8,10 +8,10 @@ import utilidades.excepciones.DAOException;
 
 public class CategoriaDao extends Dao {
 
-    private static final String SELECT = "SELECT * FROM categoria";
-    private static final String INSERT = "INSERT INTO categoria(descripcion) VALUES(?) ";
-    private static final String BUSCAR_ID = "SELECT * FROM categoria WHERE idCategoria = ?";
-    private static final String DELETE = "DELETE FROM categoria WHERE idCategoria = ?";
+    private static final String SELECT = "SELECT * FROM categorias";
+    private static final String INSERT = "INSERT INTO categorias(descripcion) VALUES(?) ";
+    private static final String BUSCAR_ID = "SELECT * FROM categorias WHERE idCategoria = ?";
+    private static final String DELETE = "DELETE FROM categorias WHERE idCategoria = ?";
 
     @Override
     public ArrayList<Entidad> listar() throws DAOException {

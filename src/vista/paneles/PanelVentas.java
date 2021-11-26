@@ -1,9 +1,5 @@
 package vista.paneles;
 
-/**
- *
- * @author Zon50
- */
 public class PanelVentas extends javax.swing.JPanel {
 
     /**
@@ -12,6 +8,8 @@ public class PanelVentas extends javax.swing.JPanel {
     public PanelVentas() {
         initComponents();
     }
+    
+    private controlVentas 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -282,10 +280,12 @@ public class PanelVentas extends javax.swing.JPanel {
 
         if (evt.getKeyCode() == 10) {
             String busqueda = ctBuscar.getText();
+            
+            
 
-            if (evt.getKeyCode() == 10) {
-             ///   if(UPCNAME = )
-            }
+//            if (evt.getKeyCode() == 10) {
+//             ///   if(UPCNAME = )
+//            }
 
         }
     }//GEN-LAST:event_ctBuscarKeyPressed
