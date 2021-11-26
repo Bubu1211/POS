@@ -4,6 +4,11 @@ import control.ControlProveedores;
 import dao.ProveedorDao;
 import datos.Conexion;
 import datos.entidades.Proveedor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilidades.excepciones.BDException;
 import utilidades.excepciones.ControlException;
@@ -460,7 +465,21 @@ public class PanelProveedores extends javax.swing.JPanel {
         ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
         ///de articulos el método buscar trae todos los datos 
         proveedor.setId(Integer.parseInt(String.valueOf(jtProveedores.getValueAt(row, 0))));
-        //todo
+        proveedor.setNombre(String.valueOf(jtProveedores.getValueAt(row, 1)));
+        proveedor.setContacto(String.valueOf(jtProveedores.getValueAt(row, 2)));
+        
+        String fecha = String.valueOf(jtProveedores.getValueAt(row,3));
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try { 
+            Date date = formato.parse(fecha);
+            long d = date.getTime();
+            proveedor.setDiaEntrega(new java.sql.Date(d));
+        } catch (ParseException ex) {
+            Logger.getLogger(PanelProveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        proveedor.setTipo(String.valueOf(jtProveedores.getValueAt(row, 4)));
+        
     }//GEN-LAST:event_jtProveedoresMouseClicked
 
     private void ctBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMouseClicked
