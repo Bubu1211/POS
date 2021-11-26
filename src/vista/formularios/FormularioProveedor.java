@@ -315,6 +315,15 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         proveedor.setNombre(ctNombre.getText());
 
+        //recuperar fecha
+        //poner al proveedor fecha
+        //convertir a java sql
+        
+        String diaEntrega = jDate.getDateFormatString();
+        
+//        long dE = diaEntrega.getTime();
+//        java.sql.Date fecha = new java.sql.Date(dE)
+        
         if (modificar) {
 
             try {
