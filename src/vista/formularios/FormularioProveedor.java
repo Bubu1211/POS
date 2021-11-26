@@ -24,10 +24,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
         ctContacto.setText(proveedor.getContacto());
         ctTipo.setText(proveedor.getTipo());
         jDate.setDate(proveedor.getDiaEntrega());
-<<<<<<< HEAD
         ctNombre.setEditable(false);///
-=======
->>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
     }
 
     public FormularioProveedor() {
@@ -303,49 +300,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarMouseReleased
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-<<<<<<< HEAD
-        Conexion conexion = new Conexion();
-        ProveedorDao usuarioDao = new ProveedorDao();
-=======
->>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
-        proveedor = new Proveedor();
-        proveedor.setNombre(ctNombre.getText());
-        
-        if(modificar){
-            control.modificarProveedor(proveedor);
-<<<<<<< HEAD
-        }else{
-            
-//        try {
-//            conexion.iniciarConexion();
-//            usuarioDao.setConexion(conexion.getConexion());
-//
-//        proveedor = new Proveedor();
-//        cajaTextoNormal(ctNombre);
-//        cajaTextoNormal(ctContacto);
-//        
-//        //recuperar los datos de los campos de tecto
-//        String nombreString = ctNombre.getText();
-//        String contactoString = ctContacto.getText();
-//        
-//        if(!nombreString.isEmpty()){
-//            if(!contactoString.isEmpty()){
-//                try{
-//                    
-//                }
-//            }
-//        }
-            
-        } catch (BDException ex) {
-        } finally {
-            try {
-                conexion.cerrarConexion();
-            } catch (BDException ex) {
 
-            }
-=======
->>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
-        }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private java.awt.Color colorAzul;
