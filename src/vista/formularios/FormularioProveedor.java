@@ -22,9 +22,12 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         ctNombre.setText(proveedor.getNombre());
         ctContacto.setText(proveedor.getContacto());
-        cmbTipo.setSelectedIndex(0);
+        ctTipo.setText(proveedor.getTipo());
         jDate.setDate(proveedor.getDiaEntrega());
-        ctNombre.setEditable(false);
+<<<<<<< HEAD
+        ctNombre.setEditable(false);///
+=======
+>>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
     }
 
     public FormularioProveedor() {
@@ -38,6 +41,22 @@ public class FormularioProveedor extends javax.swing.JFrame {
         modificar = false;
     }
 
+    private void limpiar() {
+        ctNombre.setText(null);
+        ctContacto.setText(null);
+        ctTipo.setText(null);
+        jDate.setDate(null);
+    }
+    
+    private void cajaTextoError(javax.swing.JTextField ct) {
+        ct.requestFocus();
+        ct.setForeground(java.awt.Color.RED);
+    }
+
+    private void cajaTextoNormal(javax.swing.JTextField ct) {
+        ct.setForeground(java.awt.Color.BLACK);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,7 +67,6 @@ public class FormularioProveedor extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         ctContacto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        cmbTipo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         botonGuardar = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -61,6 +79,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         label1 = new java.awt.Label();
         jDate = new com.toedter.calendar.JDateChooser();
+        ctTipo = new javax.swing.JTextField();
 
         jButton1.setText("jButton1");
 
@@ -74,8 +93,6 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jLabel4.setText("Tipo");
-
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Directo", "Indirecto" }));
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jLabel5.setText("Fecha de entrega");
@@ -231,12 +248,12 @@ public class FormularioProveedor extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
                     .addComponent(ctContacto)
-                    .addComponent(cmbTipo, 0, 339, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ctTipo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -253,9 +270,9 @@ public class FormularioProveedor extends javax.swing.JFrame {
                 .addComponent(ctContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
+                .addComponent(ctTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,14 +303,38 @@ public class FormularioProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarMouseReleased
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
+<<<<<<< HEAD
         Conexion conexion = new Conexion();
         ProveedorDao usuarioDao = new ProveedorDao();
-
-        try {
-            conexion.iniciarConexion();
-            usuarioDao.setConexion(conexion.getConexion());
-
+=======
+>>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
+        proveedor = new Proveedor();
+        proveedor.setNombre(ctNombre.getText());
+        
+        if(modificar){
+            control.modificarProveedor(proveedor);
+<<<<<<< HEAD
+        }else{
             
+//        try {
+//            conexion.iniciarConexion();
+//            usuarioDao.setConexion(conexion.getConexion());
+//
+//        proveedor = new Proveedor();
+//        cajaTextoNormal(ctNombre);
+//        cajaTextoNormal(ctContacto);
+//        
+//        //recuperar los datos de los campos de tecto
+//        String nombreString = ctNombre.getText();
+//        String contactoString = ctContacto.getText();
+//        
+//        if(!nombreString.isEmpty()){
+//            if(!contactoString.isEmpty()){
+//                try{
+//                    
+//                }
+//            }
+//        }
             
         } catch (BDException ex) {
         } finally {
@@ -302,6 +343,8 @@ public class FormularioProveedor extends javax.swing.JFrame {
             } catch (BDException ex) {
 
             }
+=======
+>>>>>>> df9d097897b4692c9923f5e33e9ed8eb288799f6
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
@@ -310,9 +353,9 @@ public class FormularioProveedor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonGuardar;
-    private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JTextField ctContacto;
     private javax.swing.JTextField ctNombre;
+    private javax.swing.JTextField ctTipo;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JLabel jLabel2;
