@@ -302,22 +302,28 @@ public class FormularioProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarMouseReleased
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
-<<<<<<< HEAD
+
         proveedor = new Proveedor();
         proveedor.setNombre(ctNombre.getText());
         
         if(modificar){
             
+            try {
                 control.modificarProveedor(proveedor);
+            } catch (ControlException ex) {
+                Logger.getLogger(FormularioProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }else{
             
+            try {
                 control.insertarProveedor(proveedor);
+            } catch (ControlException ex) {
+                Logger.getLogger(FormularioProveedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
-=======
 
->>>>>>> 134ca9e06e20dbfacda84df8b24f90afabec8023
     }//GEN-LAST:event_botonGuardarMouseClicked
 
     private java.awt.Color colorAzul;
