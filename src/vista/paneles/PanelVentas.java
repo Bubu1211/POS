@@ -9,7 +9,7 @@ public class PanelVentas extends javax.swing.JPanel {
         initComponents();
     }
     
-    private controlVentas 
+//    private controlVentas 
 
     /**
      * This method is called from within the constructor to initialize the form.
