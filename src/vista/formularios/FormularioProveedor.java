@@ -46,7 +46,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
         ctTipo.setText(null);
         jDate.setDate(null);
     }
-    
+
     private void cajaTextoError(javax.swing.JTextField ct) {
         ct.requestFocus();
         ct.setForeground(java.awt.Color.RED);
@@ -55,7 +55,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
     private void cajaTextoNormal(javax.swing.JTextField ct) {
         ct.setForeground(java.awt.Color.BLACK);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -304,24 +304,42 @@ public class FormularioProveedor extends javax.swing.JFrame {
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
 
         proveedor = new Proveedor();
+//        cajaTextoNormal(ctNombre);
+//        cajaTextoNormal(ctContacto);
+//        cajaTextoNormal(ctTipo);
+
+        ///Recupera los datos de los campos de texto 
+        String nombreString = ctNombre.getText();
+        String contactoString = ctContacto.getText();
+        String tipoVentaString = ctTipo.getText();
+
         proveedor.setNombre(ctNombre.getText());
-        
-        if(modificar){
-            
+
+        if (modificar) {
+
             try {
-                control.modificarProveedor(proveedor);
+                proveedor.setNombre(nombreString);
+                this.control.modificarProveedor(proveedor);
+                JOptionPane.showMessageDialog(this, "El proveedor se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+                this.control.modificarProveedor(proveedor);
             } catch (ControlException ex) {
                 Logger.getLogger(FormularioProveedor.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }else{
-            
+
+        } else {
+
             try {
-                control.insertarProveedor(proveedor);
+                this.control.insertarProveedor(proveedor);
+                JOptionPane.showMessageDialog(this, "El proveedor se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
             } catch (ControlException ex) {
                 Logger.getLogger(FormularioProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, 
+                        ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),"Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
+
             }
-            
+
         }
 
     }//GEN-LAST:event_botonGuardarMouseClicked

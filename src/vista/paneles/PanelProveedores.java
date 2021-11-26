@@ -18,6 +18,7 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     private ControlProveedores control;
     private Proveedor proveedor;
+    
 
     public PanelProveedores() {
         initComponents();
