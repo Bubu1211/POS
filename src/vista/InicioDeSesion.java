@@ -4,10 +4,15 @@
  * and open the template in the editor.
  */
 package vista;
+
+import com.mysql.cj.xdevapi.Statement;
+import dao.UsuarioDao;
 import datos.Conexion;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import utilidades.excepciones.BDException;
 
 /**
  *
@@ -34,10 +39,10 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        ctUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        ctPassword = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -49,12 +54,12 @@ public class InicioDeSesion extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Inicio de sesión");
 
-        jTextField1.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 182, 223));
-        jTextField1.setText("Usuario");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        ctUsuario.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
+        ctUsuario.setForeground(new java.awt.Color(0, 182, 223));
+        ctUsuario.setText("Usuario");
+        ctUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                ctUsuarioActionPerformed(evt);
             }
         });
 
@@ -62,12 +67,12 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vista/iconos/passwordIDC.jpg"))); // NOI18N
 
-        jPasswordField1.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(0, 182, 223));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        ctPassword.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
+        ctPassword.setForeground(new java.awt.Color(0, 182, 223));
+        ctPassword.setText("jPasswordField1");
+        ctPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                ctPasswordActionPerformed(evt);
             }
         });
 
@@ -94,8 +99,8 @@ public class InicioDeSesion extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(ctUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ctPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
@@ -109,12 +114,12 @@ public class InicioDeSesion extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ctUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(ctPassword))
                 .addGap(28, 28, 28)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(60, Short.MAX_VALUE))
@@ -140,31 +145,123 @@ public class InicioDeSesion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void ctUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_ctUsuarioActionPerformed
+
+//    public void validarAcceso() {
+//        Conexion conexion = new Conexion();
+//        UsuarioDao usuarioDao = new UsuarioDao();
+//
+//        try {
+//            conexion.iniciarConexion();
+//            usuarioDao.setConexion(conexion.getConexion());
+//
+//            int resul = 0;
+//
+//            try {
+//                String usuario = ctUsuario.getText();
+//                String password = String.valueOf(ctPassword.getText());
+//
+//                String sql = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+//
+//                Statement st = conexion.
+//            
+//
+//            } catch (Exception e) {
+//
+//            }
+//
+//        } catch (BDException ex) {
+//        } finally {
+//            try {
+//                conexion.cerrarConexion();
+//            } catch (BDException ex) {
+//
+//            }
+//        }
+//    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
-;        VentanaPrincipal ventana = new VentanaPrincipal();
-        ventana.setVisible(true);
-        this.dispose();
+//
+//        Conexion conexion = new Conexion();
+//        UsuarioDao usuarioDao = new UsuarioDao();
+//
+//        try {
+//            conexion.iniciarConexion();
+//            usuarioDao.setConexion(conexion.getConexion());
+//
+//        } catch (BDException ex) {
+//        } finally {
+//            try {
+//                conexion.cerrarConexion();
+//            } catch (BDException ex) {
+//
+//            }
+//        }
+        Conexion conexion = new Conexion();
+        UsuarioDao usuarioDao = new UsuarioDao();
+
+        try {
+            conexion.iniciarConexion();
+            usuarioDao.setConexion(conexion.getConexion());
+
+            int resul = 0;
+
+            try {
+                String usuario = ctUsuario.getText();
+                String password = String.valueOf(ctPassword.getText());
+
+                String sql = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+
+                Statement st = conexion.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+
+                    resul = 1;
+
+                    if (resul == 1) {
+                        VentanaPrincipal ventana = new VentanaPrincipal();
+                        ventana.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "La contraseña o el usuario son incorrectos");
+                    }
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
+            }
+
+        } catch (BDException ex) {
+        } finally {
+            try {
+                conexion.cerrarConexion();
+            } catch (BDException ex) {
+
+            }
+        }
+
+//        if (){
+//            VentanaPrincipal ventana = new VentanaPrincipal();
+//            ventana.setVisible(true);
+//            this.dispose();
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void ctPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_ctPasswordActionPerformed
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField ctPassword;
+    private javax.swing.JTextField ctUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
