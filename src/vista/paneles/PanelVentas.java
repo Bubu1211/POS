@@ -1,16 +1,25 @@
 package vista.paneles;
 
+import control.ControlVenta;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utilidades.excepciones.ControlException;
+
 public class PanelVentas extends javax.swing.JPanel {
+
+    private ControlVenta control;
 
     /**
      * Creates new form PanelVentas
      */
     public PanelVentas() {
         initComponents();
+        this.control = new ControlVenta();
     }
-    
-//    private controlVentas 
 
+//    private controlVentas 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -23,14 +32,14 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         UPCNAME = new javax.swing.JComboBox<>();
         ctBuscar = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        ctCantidad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtCoincidencias = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtArticulos = new javax.swing.JTable();
         botonCancelar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -65,11 +74,11 @@ public class PanelVentas extends javax.swing.JPanel {
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-        jTextField2.setText("1");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        ctCantidad.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        ctCantidad.setText("1");
+        ctCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                ctCantidadActionPerformed(evt);
             }
         });
 
@@ -79,7 +88,7 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jLabel3.setText("Coincidencias");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCoincidencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null}
@@ -87,32 +96,47 @@ public class PanelVentas extends javax.swing.JPanel {
             new String [] {
                 "UPC", "Descripción", "Proveedor", "Categoria", "Precio"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtCoincidencias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtCoincidenciasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtCoincidencias);
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jLabel4.setText("Artículos a vender");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "UPC", "Descripción", "Proveedor", "Categoría", "Precio", "Cantidad"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtArticulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtArticulosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jtArticulos);
 
         botonCancelar.setBackground(new java.awt.Color(255, 0, 0));
         botonCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -162,6 +186,11 @@ public class PanelVentas extends javax.swing.JPanel {
 
         botonCobrar.setBackground(new java.awt.Color(0, 255, 255));
         botonCobrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonCobrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonCobrarMouseClicked(evt);
+            }
+        });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -216,7 +245,7 @@ public class PanelVentas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ctCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -240,19 +269,19 @@ public class PanelVentas extends javax.swing.JPanel {
                     .addComponent(ctBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UPCNAME, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ctCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(138, 138, 138)
                         .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66)
                         .addComponent(botonCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -264,9 +293,9 @@ public class PanelVentas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ctBuscarActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void ctCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctCantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_ctCantidadActionPerformed
 
     private void botonCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMousePressed
         // TODO add your handling code here:
@@ -278,17 +307,82 @@ public class PanelVentas extends javax.swing.JPanel {
 
     private void ctBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctBuscarKeyPressed
 
+        ///Si la tecla 
         if (evt.getKeyCode() == 10) {
             String busqueda = ctBuscar.getText();
-            
-            
-
-//            if (evt.getKeyCode() == 10) {
-//             ///   if(UPCNAME = )
-//            }
-
+            try {
+                var tabla = this.control.buscar(UPCNAME.getSelectedIndex(), busqueda);
+                jtCoincidencias.setModel(new DefaultTableModel());
+                this.jtCoincidencias.setModel(tabla);
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage() + "\n Error en: \n"
+                        + ex.getOrigen(), "Ups ocurrio un error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_ctBuscarKeyPressed
+
+    private void jtCoincidenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCoincidenciasMouseClicked
+        // TODO add your handling code here:
+        int row = jtCoincidencias.getSelectedRow();
+        Object[] fila = new Object[6];
+        fila[0] = jtCoincidencias.getValueAt(row, 0);
+        fila[1] = jtCoincidencias.getValueAt(row, 1);
+        fila[2] = jtCoincidencias.getValueAt(row, 2);
+        fila[3] = jtCoincidencias.getValueAt(row, 3);
+        fila[4] = jtCoincidencias.getValueAt(row, 4);
+
+        try {
+            ///Se recupera lña cantidad de la ct Cantidad
+            float cantidad = Float.parseFloat(ctCantidad.getText());
+            ///Si es menor a 1, lanza una exception
+            if (cantidad < 1) {
+                throw new NumberFormatException("Debe ingresar un valor válido");
+            }
+            ///guarda el valor de la cantidad en la fila
+            fila[5] = cantidad;
+            ///Recuperamos el modelo de tabla que ya tiene la tabla de articulos
+            var tablaArticulo = (DefaultTableModel) jtArticulos.getModel();
+            ///Agregamos a ese modelo recuperado la nueva fila 
+            tablaArticulo.addRow(fila);
+            ///Volvemos a poner el modelo a la tabla de articulos ya actualizado
+            jtArticulos.setModel(tablaArticulo);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ser numérico", "Ups ocurrio un error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jtCoincidenciasMouseClicked
+
+    private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
+        // TODO add your handling code here:
+        int row = jtArticulos.getSelectedRow();
+        int column = jtArticulos.getSelectedColumn();
+        if (column != 5) {
+            if (JOptionPane.showConfirmDialog(this, "Seguro que desea borrar el artículo de la venta?")
+                    == JOptionPane.YES_OPTION) {
+                var modeloTabla = (DefaultTableModel) jtArticulos.getModel();
+                modeloTabla.removeRow(row);
+                jtArticulos.setModel(modeloTabla);
+            }
+        }
+    }//GEN-LAST:event_jtArticulosMouseClicked
+
+    private void botonCobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCobrarMouseClicked
+        // TODO add your handling code here:
+        float total = 0.0f;
+        for (int row = 0; row < jtArticulos.getRowCount(); row++) {
+            float precio = Float.parseFloat(jtArticulos.getValueAt(row, 4).toString());
+            float cantidad = Float.parseFloat(jtArticulos.getValueAt(row, 5).toString());
+            total += precio * cantidad ;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Cobre: $" + total) == JOptionPane.YES_OPTION) {
+            try {
+                this.control.vender((DefaultTableModel) jtArticulos.getModel(), total);
+            } catch (ControlException ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage()
+                        + "Error en: " + ex.getOrigen(), "Lo sentimos, intente otra vez",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_botonCobrarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -296,6 +390,7 @@ public class PanelVentas extends javax.swing.JPanel {
     private javax.swing.JPanel botonCancelar;
     private javax.swing.JPanel botonCobrar;
     private javax.swing.JTextField ctBuscar;
+    private javax.swing.JTextField ctCantidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -308,8 +403,7 @@ public class PanelVentas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable jtArticulos;
+    private javax.swing.JTable jtCoincidencias;
     // End of variables declaration//GEN-END:variables
 }

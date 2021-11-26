@@ -67,6 +67,7 @@ public class ControlInventario extends Controlador {
     }
 
     public DefaultTableModel listarArticulos() throws ControlException, DAOException {
+        ///No inicia conexión 
         this.modeloTabla = new DefaultTableModel();
 
         try {
