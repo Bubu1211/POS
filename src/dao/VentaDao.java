@@ -1,6 +1,7 @@
 package dao;
 
 import datos.entidades.Venta;
+import java.sql.*;
 import datos.entidades.Entidad;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -42,11 +43,12 @@ public class VentaDao extends Dao {
             statement.setFloat(1, venta.getTotalVenta());
             statement.setDate(2, venta.getFechaVenta());
             tuplasAfectadas = statement.executeUpdate();
-            ResultSet generatedKey = statement.getGeneratedKey();
+            ResultSet generatedKey = statement.getGeneratedKeys();
+            /*.getGeneratedKey(); */
             if (generatedKey.next()) {
-                this.primarykey = (int) ventaKey.getLong(1);
+                this.primarykey = (int) generatedKey.getLong(1);
             } else {
-                throw new DAOException();
+                throw new DAOException("Error");
             }
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al insertar venta");
@@ -97,7 +99,12 @@ public class VentaDao extends Dao {
         } finally {
             resultSet = null;
         }
-        return ventas; 
+        return ventas;
+    }
+
+    public int getPrimaryKey() {
+
+        return this.primarykey;
     }
 
 }

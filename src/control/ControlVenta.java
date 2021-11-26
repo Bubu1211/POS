@@ -55,6 +55,7 @@ public class ControlVenta extends Controlador {
         }
         return modeloTabla;
     }
+<<<<<<< HEAD
     
     public int vender(DefaultTableModel modeloTabla, float totalVenta) {
 //        crear un objeto venta 
@@ -77,3 +78,13 @@ public class ControlVenta extends Controlador {
 
     }
 }
+=======
+        public int vender(DefaultTableModel modeloTabla, float totalVenta) {
+
+        return 0;
+
+    }
+
+
+}
+>>>>>>> fc1dbe41ca6bed8e2053554626121347471a137e
