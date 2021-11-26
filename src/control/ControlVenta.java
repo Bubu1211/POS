@@ -58,7 +58,7 @@ public class ControlVenta extends Controlador {
         public int vender(DefaultTableModel modeloTabla, float totalVenta) {
 
         return 0;
-
+///dadjawjnkw
     }
 
 
