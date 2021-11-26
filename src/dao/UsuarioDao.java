@@ -177,4 +177,31 @@ public class UsuarioDao extends Dao {
         }
         return usuarios;
     }
+    
+    public Usuario bucarUno(int id) throws DAOException {
+        Usuario categoria = new Usuario();
+
+        statement = null;
+        resultSet = null;
+
+        try {
+            statement = this.conexion.prepareStatement(BUSCAR_ID);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            categoria.setId(resultSet.getInt("idUsuario"));
+            categoria.setPassword(resultSet.getString("password"));
+            categoria.setNombre(resultSet.getString("nombre"));
+            categoria.setContacto(resultSet.getString("contacto"));
+            categoria.setIdPuesto(resultSet.getInt("id Puesto"));
+
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando el usuario por el id: " + id);
+        } finally {
+            statement = null;
+            resultSet = null;
+        }
+
+        return categoria;
+    }
 }

@@ -10,15 +10,15 @@ import javax.swing.table.DefaultTableModel;
 import utilidades.excepciones.ControlException;
 import utilidades.excepciones.DAOException;
 
-public class ControlProveedores extends Controlador{
-    
+public class ControlProveedores extends Controlador {
+
     private ProveedorDao proveedorDao;
     private ArrayList<String> proveedores;
-    
-    public ControlProveedores(){
+
+    public ControlProveedores() {
         proveedorDao = new ProveedorDao();
     }
-    
+
     private void llenarModeloTabla(ArrayList<Proveedor> proveedores) {
         //Pone las columnas al modelo de la tabla
         modeloTabla.addColumn("ID");
@@ -38,7 +38,7 @@ public class ControlProveedores extends Controlador{
         }
 
     }
-    
+
     public void eliminarProveedor(int idProveedor) throws ControlException {
         try {
             this.iniciarConexion();
@@ -60,8 +60,7 @@ public class ControlProveedores extends Controlador{
             this.cerrarConexion();
         }
     }
-    
-    
+
     public DefaultTableModel listarProveedores() throws ControlException {
         this.modeloTabla = new DefaultTableModel();
 
@@ -86,10 +85,62 @@ public class ControlProveedores extends Controlador{
         }
         return this.modeloTabla;
     }
-    
+
     public DefaultTableModel buscarProveedor(int criterio, String busqueda) throws ControlException {
         this.modeloTabla = new DefaultTableModel();
 
+        try {
+            this.iniciarConexion();
+            this.proveedorDao.setConexion(this.getConexion());
+        } catch (ControlException ex) {
+            throw new ControlException(ex.getMessage(), "Error asignado conexión");
+        }
+
+        try {
+            if (criterio == 0) {
+                var proveedor = proveedorDao.buscarId(Integer.parseInt(busqueda));
+                this.modeloTabla.addColumn("IdProveedor, Nombre, Contacto, DiaEntrega, Tipo");
+                Object[] fila = new Object[5];
+                fila[0] = proveedor.getId();
+                fila[1] = proveedor.getNombre();
+                fila[2] = proveedor.getContacto();
+                fila[3] = proveedor.getDiaEntrega();
+                fila[4] = proveedor.getTipo();
+                
+            } else {
+                var proveedores = proveedorDao.buscarNombre(busqueda);
+                this.llenarModeloTabla(proveedores);
+            }
+        } catch (DAOException ex) {
+            throw new ControlException(ex.getMessage(), "Error buscando proveedor \n" + ex.getOrigen());
+        } finally {
+            this.cerrarConexion();
+        }
+        return this.modeloTabla;
+    }
+
+    public void insertarProveedor(Proveedor proveedor) throws ControlException {
+        try {
+            this.iniciarConexion();
+            proveedorDao.setConexion(this.getConexion());
+        } catch (ControlException ex) {
+            throw new ControlException(ex.getMessage(), "Error asignando conexión ");
+        }
+
+        try {
+            int tuplasAfectadas = proveedorDao.insertar(proveedor);
+            if (tuplasAfectadas < 1) {
+                throw new ControlException("Error, no se logró ingresar el nuevo proveedor, intente de nuevo",
+                        "Insertar nueva categoría");
+            }
+        } catch (DAOException ex) {
+            throw new ControlException(ex.getMessage(), "Error al insertar nuevo proveedor " + ex.getOrigen());
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public void modificarProveedor(Proveedor proveedor) throws ControlException {
         try {
             this.iniciarConexion();
             this.proveedorDao.setConexion(this.getConexion());
@@ -98,43 +149,17 @@ public class ControlProveedores extends Controlador{
         }
 
         try {
-            var proveedores = switch (criterio) {
-                case 0 -> proveedorDao.buscarId(Integer.parseInt(busqueda));
-                case 1 -> proveedorDao.buscarNombre(busqueda);
-                default -> null;
-            };
-            
-            this.llenarModeloTabla(proveedores);
-            
-        } catch (DAOException ex) {
-            throw new ControlException(ex.getMessage(), "Error buscando proveedor \n" + ex.getOrigen());
-        }finally{
-            this.cerrarConexion();
-        }
-
-        return this.modeloTabla;
-    }
-    
-    public void insertarProveedor(Proveedor proveedor) throws ControlException{
-        try{
-            this.iniciarConexion();
-            proveedorDao.setConexion(this.getConexion());
-        } catch (ControlException ex) {
-            throw ex;
-        }
-        
-        try {
-            int tuplasAfectadas = proveedorDao.insertar(proveedor);
-            if(tuplasAfectadas < 1){
-                throw new ControlException("Error, no se logró ingresar el nuevo proveedor, intente de nuevo",
-                    "Insertar nueva categoría");
+            int tuplasAfectadas = this.proveedorDao.modificar(proveedor);
+            if (tuplasAfectadas == 0) {
+                throw new ControlException("Aviso, ningún registro fue afectado, si es necesario contacte a los desarrolladores",
+                        "Error insertando un articulo en el controlador");
             }
         } catch (DAOException ex) {
-            throw new ControlException(ex.getMessage(), "Error al insertar nuevo proveedor "+ex.getOrigen());
-        }finally{
+            throw new ControlException(ex.getMessage(), "Error insertando el artículo \n"
+                    + ex.getOrigen());
+        } finally {
             this.cerrarConexion();
         }
     }
-    
+
 }
-    
