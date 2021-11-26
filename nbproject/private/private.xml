@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioArticulo.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/control/ControlProveedores.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/control/ControlArticulos.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/datos/Conexion.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/dao/ProveedorDao.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/InicioDeSesion.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioProveedor.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelInventario.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelProveedores.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
