@@ -25,7 +25,7 @@ public class PanelInventario extends javax.swing.JPanel {
 
         control = new ControlInventario();
         listar();
-        
+
         try {
             this.jtArticulos.setModel(control.listarArticulos());
         } catch (ControlException ex) {
@@ -144,6 +144,9 @@ public class PanelInventario extends javax.swing.JPanel {
         botonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonModificarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonModificarMouseEntered(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonModificarMousePressed(evt);
@@ -405,6 +408,11 @@ public class PanelInventario extends javax.swing.JPanel {
             }
         ));
         jtArticulos.setPreferredSize(new java.awt.Dimension(300, 100));
+        jtArticulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtArticulosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtArticulos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -506,6 +514,7 @@ public class PanelInventario extends javax.swing.JPanel {
                 try {
                     this.control.eliminar(articulo.getId());
                     JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+                    listar();
                 } catch (ControlException ex) {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
                             ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
@@ -577,7 +586,7 @@ public class PanelInventario extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_botonListarMouseClicked
 
-    private void listar(){
+    private void listar() {
         try {
             ///Evento de boton listar, debe llenar la tabla
             var modeloTabla = this.control.listarArticulos();
@@ -590,7 +599,7 @@ public class PanelInventario extends javax.swing.JPanel {
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void ctBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctBusquedaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == 10) {
@@ -603,6 +612,26 @@ public class PanelInventario extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_ctBusquedaKeyPressed
+
+    private void botonModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseEntered
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_botonModificarMouseEntered
+
+    private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
+        // TODO add your handling code here:
+
+        int row = this.jtArticulos.getSelectedRow();
+        articulo = new Articulo();
+        ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
+        ///de articulos el método buscar trae todos los datos 
+        articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
+        articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
+        articulo.setIdCategoria(Integer.parseInt(jtArticulos.getValueAt(row, 2).toString()));
+        articulo.setIdProveedor(Integer.parseInt(jtArticulos.getValueAt(row, 3).toString()));
+        articulo.setPrecioCompra(Float.parseFloat(jtArticulos.getValueAt(row, 4).toString()));
+        articulo.setPrecioVenta(Float.parseFloat(jtArticulos.getValueAt(row, 5).toString()));
+    }//GEN-LAST:event_jtArticulosMouseClicked
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorVerde;
