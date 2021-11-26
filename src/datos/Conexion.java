@@ -16,6 +16,7 @@ public class Conexion {
 
 
 
+
     ///Solo crea la conexion 
     public void iniciarConexion() throws BDException {
 
