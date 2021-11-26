@@ -5,7 +5,7 @@
  */
 package vista;
 
-import com.mysql.cj.xdevapi.Statement;
+
 import dao.UsuarioDao;
 import datos.Conexion;
 import datos.entidades.Usuario;
