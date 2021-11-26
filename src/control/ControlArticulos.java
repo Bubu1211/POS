@@ -8,8 +8,6 @@ import datos.entidades.Categoria;
 import datos.entidades.Entidad;
 import datos.entidades.Proveedor;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utilidades.excepciones.ControlException;
 import utilidades.excepciones.DAOException;
 

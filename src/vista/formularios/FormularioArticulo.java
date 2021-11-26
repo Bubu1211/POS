@@ -64,8 +64,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
             this.cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(modeloProveedores));
 
         } catch (ControlException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), "Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
 
         }
     }
@@ -402,6 +402,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
 
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
 
+        articulo = new Articulo();
         cajaTextoNormal(ctUpc);
         cajaTextoNormal(ctDescripcion);
         cajaTextoNormal(ctPrecioVenta);
@@ -432,6 +433,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
                         try {
                             //EVENTO DEL BOTON GUARDAR
                             if (modificar) {
+                                articulo.setDescripcion(descripcionString);
                                 this.control.modificarArticulo(articulo);
                                 JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 
@@ -504,8 +506,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
             ///Se actualiza el comboBox
             this.setModeloCategoriasProveedores();
         } catch (ControlException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, 
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),"Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_botonNuevaCategoriaMouseClicked

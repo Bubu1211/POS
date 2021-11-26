@@ -1,19 +1,26 @@
 package vista.paneles;
 
+import control.ControlProveedores;
+import datos.entidades.Proveedor;
 import javax.swing.JOptionPane;
+import utilidades.excepciones.ControlException;
 import vista.formularios.FormularioProveedor;
 
 public class PanelProveedores extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelProveedores
-     */
+    private ControlProveedores control;
+    private Proveedor proveedor;
+    
     public PanelProveedores() {
         initComponents();
         colorRojo = new java.awt.Color(204,0,0);
         colorAzul = new java.awt.Color(0,204,204);
         colorVerde = new java.awt.Color(51,255,0);
         colorAmarillo = new java.awt.Color(255,204,0);
+        
+        control = new ControlProveedores();
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -34,7 +41,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         ctBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtDatosProveedores = new javax.swing.JTable();
+        jtProveedores = new javax.swing.JTable();
         cmbBuscar = new javax.swing.JComboBox<>();
         botonListar = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -217,7 +224,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             }
         });
 
-        jtDatosProveedores.setModel(new javax.swing.table.DefaultTableModel(
+        jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -228,7 +235,7 @@ public class PanelProveedores extends javax.swing.JPanel {
                 "Id", "Nombre", "Tipo", "Contácto", "Fecha de entrega"
             }
         ));
-        jScrollPane1.setViewportView(jtDatosProveedores);
+        jScrollPane1.setViewportView(jtProveedores);
 
         cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id", "Nombre" }));
 
@@ -412,6 +419,6 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtDatosProveedores;
+    private javax.swing.JTable jtProveedores;
     // End of variables declaration//GEN-END:variables
 }
