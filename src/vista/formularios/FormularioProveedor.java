@@ -38,6 +38,22 @@ public class FormularioProveedor extends javax.swing.JFrame {
         modificar = false;
     }
 
+    private void limpiar() {
+        ctNombre.setText(null);
+        ctContacto.setText(null);
+        cmbTipo.setSelectedIndex(0);
+        jDate.setDate(null);
+    }
+    
+    private void cajaTextoError(javax.swing.JTextField ct) {
+        ct.requestFocus();
+        ct.setForeground(java.awt.Color.RED);
+    }
+
+    private void cajaTextoNormal(javax.swing.JTextField ct) {
+        ct.setForeground(java.awt.Color.BLACK);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -289,11 +305,25 @@ public class FormularioProveedor extends javax.swing.JFrame {
         Conexion conexion = new Conexion();
         ProveedorDao usuarioDao = new ProveedorDao();
 
-        try {
-            conexion.iniciarConexion();
-            usuarioDao.setConexion(conexion.getConexion());
-
-            
+//        try {
+//            conexion.iniciarConexion();
+//            usuarioDao.setConexion(conexion.getConexion());
+//
+//        proveedor = new Proveedor();
+//        cajaTextoNormal(ctNombre);
+//        cajaTextoNormal(ctContacto);
+//        
+//        //recuperar los datos de los campos de tecto
+//        String nombreString = ctNombre.getText();
+//        String contactoString = ctContacto.getText();
+//        
+//        if(!nombreString.isEmpty()){
+//            if(!contactoString.isEmpty()){
+//                try{
+//                    
+//                }
+//            }
+//        }
             
         } catch (BDException ex) {
         } finally {
