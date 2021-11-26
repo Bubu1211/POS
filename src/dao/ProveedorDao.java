@@ -14,8 +14,7 @@ public class ProveedorDao extends Dao{
             + "diaEntrega = ?, tipo = ? WHERE idProveedor = ?";
     private static final String DELETE = "DELETE FROM proveedores WHERE idProveedor = ?";
     private static final String BUSCAR_ID = "SELECT * FROM proveedores WHERE idProveedor = ?";
-    private static final String BUSCAR_NOMBRE = "SELECT * FROM proveedores WHERE nombre LIKE '?%'";
-
+    
     
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
@@ -156,13 +155,14 @@ public class ProveedorDao extends Dao{
     
     public ArrayList<Proveedor> buscarNombre(String nombre) throws DAOException{
         ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
-        
+        String BUSCAR_NOMBRE = "SELECT * FROM proveedores WHERE nombre LIKE '" + nombre +"%'";
+
         statement = null;
         resultSet = null;
         
         try {
             statement = this.conexion.prepareStatement(BUSCAR_NOMBRE);
-            statement.setString(1, nombre);
+            
             resultSet = statement.executeQuery();
             for (Entidad e : this.listarResultSet()) {
                 Proveedor a = (Proveedor) e;
@@ -170,7 +170,7 @@ public class ProveedorDao extends Dao{
             }
 
         } catch (SQLException ex) {
-            throw new DAOException(ex.getMessage(), "Error buscando el articulo por el nombre: " + nombre);
+            throw new DAOException(ex.getMessage(), "Error buscando el proveedor por el nombre: " + nombre);
         } finally {
             statement = null;
             resultSet = null;

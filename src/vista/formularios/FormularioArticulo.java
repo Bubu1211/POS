@@ -429,6 +429,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
                                 String itemProveedor = cmbProveedores.getItemAt(cmbProveedores.getSelectedIndex());
                                 String itemCategoria = cmbCategoria.getItemAt(cmbCategoria.getSelectedIndex());
                                 control.buscarProveedorCategoria(itemProveedor, itemCategoria);
+                                articulo.setIdProveedor(control.getProveedor().getId());
+                                articulo.setIdCategoria(control.getCategoria().getId());
                                 
                                 //EVENTO DEL BOTON GUARDAR
                                 if (modificar) {
