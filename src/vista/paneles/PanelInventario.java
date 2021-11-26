@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilidades.excepciones.ControlException;
+import utilidades.excepciones.DAOException;
 import vista.formularios.FormularioArticulo;
 import vista.formularios.FormularioPromocion;
 
@@ -24,10 +25,13 @@ public class PanelInventario extends javax.swing.JPanel {
 
         control = new ControlInventario();
         listar();
-        
+
         try {
             this.jtArticulos.setModel(control.listarArticulos());
         } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        } catch (DAOException ex) {
             JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
@@ -62,7 +66,7 @@ public class PanelInventario extends javax.swing.JPanel {
         cmbBusqueda = new javax.swing.JComboBox<>();
         btnOrdenar = new javax.swing.JButton();
         cmbOrden = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         jtArticulos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -140,6 +144,9 @@ public class PanelInventario extends javax.swing.JPanel {
         botonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 botonModificarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                botonModificarMouseEntered(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonModificarMousePressed(evt);
@@ -391,19 +398,22 @@ public class PanelInventario extends javax.swing.JPanel {
 
         jtArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "IPC", "Descripción", "Categoría", "Proveedor", "Precio compra", "Precio Venta", "Margen", "Existencia"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtArticulos.setPreferredSize(new java.awt.Dimension(300, 10));
+        jtArticulos.setPreferredSize(new java.awt.Dimension(300, 100));
         jtArticulos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtArticulosMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jtArticulos);
+        jScrollPane1.setViewportView(jtArticulos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -411,26 +421,30 @@ public class PanelInventario extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(botonPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnOrdenar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(botonPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botonListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ctBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnOrdenar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(43, 43, 43))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,9 +463,9 @@ public class PanelInventario extends javax.swing.JPanel {
                     .addComponent(cmbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOrdenar)
                     .addComponent(cmbOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -500,6 +514,7 @@ public class PanelInventario extends javax.swing.JPanel {
                 try {
                     this.control.eliminar(articulo.getId());
                     JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
+                    listar();
                 } catch (ControlException ex) {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
                             ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
@@ -571,7 +586,7 @@ public class PanelInventario extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_botonListarMouseClicked
 
-    private void listar(){
+    private void listar() {
         try {
             ///Evento de boton listar, debe llenar la tabla
             var modeloTabla = this.control.listarArticulos();
@@ -579,22 +594,11 @@ public class PanelInventario extends javax.swing.JPanel {
         } catch (ControlException ex) {
             JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
-        // TODO add your handling code here:
-        int row = this.jtArticulos.getSelectedRow();
-        articulo = new Articulo();
-        ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
-        ///de articulos el método buscar trae todos los datos 
-        articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
-        articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
-        articulo.setIdCategoria(Integer.parseInt(jtArticulos.getValueAt(row, 2).toString()));
-        articulo.setIdProveedor(Integer.parseInt(jtArticulos.getValueAt(row, 3).toString()));
-        articulo.setPrecioCompra(Float.parseFloat(jtArticulos.getValueAt(row, 4).toString()));
-        articulo.setPrecioVenta(Float.parseFloat(jtArticulos.getValueAt(row, 5).toString()));
-    }//GEN-LAST:event_jtArticulosMouseClicked
 
     private void ctBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ctBusquedaKeyPressed
         // TODO add your handling code here:
@@ -608,6 +612,26 @@ public class PanelInventario extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_ctBusquedaKeyPressed
+
+    private void botonModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseEntered
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_botonModificarMouseEntered
+
+    private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
+        // TODO add your handling code here:
+
+        int row = this.jtArticulos.getSelectedRow();
+        articulo = new Articulo();
+        ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
+        ///de articulos el método buscar trae todos los datos 
+        articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
+        articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
+        articulo.setIdCategoria(Integer.parseInt(jtArticulos.getValueAt(row, 2).toString()));
+        articulo.setIdProveedor(Integer.parseInt(jtArticulos.getValueAt(row, 3).toString()));
+        articulo.setPrecioCompra(Float.parseFloat(jtArticulos.getValueAt(row, 4).toString()));
+        articulo.setPrecioVenta(Float.parseFloat(jtArticulos.getValueAt(row, 5).toString()));
+    }//GEN-LAST:event_jtArticulosMouseClicked
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorVerde;
@@ -640,7 +664,7 @@ public class PanelInventario extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtArticulos;
     // End of variables declaration//GEN-END:variables
 }

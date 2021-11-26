@@ -23,8 +23,8 @@ public class FormularioArticulo extends javax.swing.JFrame {
         ctDescripcion.setText(articulo.getDescripcion());
         cmbCategoria.setSelectedIndex(articulo.getIdCategoria());
         cmbProveedores.setSelectedIndex(articulo.getIdProveedor());
-        ctPrecioVenta.setText(null);
-        ctPrecioCompra.setText(null);
+        ctPrecioVenta.setText(articulo.getPrecioVenta()+"");
+        ctPrecioCompra.setText(articulo.getPrecioCompra()+"");
         ///dESACTIVA el campo de texto de UPC ya que ya contiejne uno
         ctUpc.setEditable(false);
     }

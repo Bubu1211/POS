@@ -11,8 +11,8 @@ import utilidades.excepciones.DAOException;
 public class VentaDao extends Dao {
 
     private static final String SELECT = "SELECT * FROM ventas";
-    private static final String INSERT = "INSERT INTO venta(totalVenta, fechaVenta) VALUES(?,?) ";
-    private static final String DELETE = "DELETE FROM venta WHERE idVenta = ?";
+    private static final String INSERT = "INSERT INTO ventas(totalVenta, fechaVenta) VALUES(?,?) ";
+    private static final String DELETE = "DELETE FROM ventas WHERE idVenta = ?";
     private int primarykey;
 
     @Override
