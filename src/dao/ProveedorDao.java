@@ -136,7 +136,7 @@ public class ProveedorDao extends Dao{
             statement = this.conexion.prepareStatement(BUSCAR_ID);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-
+            resultSet.next();
             proveedor.setId(resultSet.getInt("idProveedor"));
             proveedor.setNombre(resultSet.getString("nombre"));
             proveedor.setContacto(resultSet.getString("contacto"));
