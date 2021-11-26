@@ -11,6 +11,7 @@ public class CategoriaDao extends Dao {
     private static final String SELECT = "SELECT * FROM categorias";
     private static final String INSERT = "INSERT INTO categorias(descripcion) VALUES(?) ";
     private static final String BUSCAR_ID = "SELECT * FROM categorias WHERE idCategoria = ?";
+    private static final String BUSCAR_DESCRIPCION = "SELECT * FROM categorias WHERE descripcion = ?";
     private static final String DELETE = "DELETE FROM categorias WHERE idCategoria = ?";
 
     @Override
@@ -114,4 +115,30 @@ public class CategoriaDao extends Dao {
 
         return categoria;
     }
+    
+public Categoria bucarDescripcion(String descripcion) throws DAOException {
+        Categoria categoria = new Categoria();
+
+        statement = null;
+        resultSet = null;
+
+        try {
+            statement = this.conexion.prepareStatement(BUSCAR_DESCRIPCION);
+            statement.setString(1, descripcion);
+            resultSet = statement.executeQuery();
+
+            categoria.setId(resultSet.getInt("idCategoria"));
+            categoria.setDescripcion(resultSet.getString("descripcion"));
+
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando la categoria por la descripcion: " + descripcion);
+        } finally {
+            statement = null;
+            resultSet = null;
+        }
+
+        return categoria;
+    }
 }
+
+

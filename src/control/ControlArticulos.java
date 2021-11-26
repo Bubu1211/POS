@@ -173,4 +173,12 @@ public class ControlArticulos extends Controlador {
             this.cerrarConexion();
         }
     }
+    
+    public Proveedor getProveedor(){
+        return this.proveedor;
+    }
+    
+    public Categoria getCategoria(){
+        return this.categoria;
+    }
 }
