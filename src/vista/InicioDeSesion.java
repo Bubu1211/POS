@@ -232,7 +232,8 @@ public class InicioDeSesion extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
+//                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" );
             }
 
         } catch (BDException ex) {
