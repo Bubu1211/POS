@@ -5,9 +5,10 @@
  */
 package vista;
 
-import com.mysql.cj.xdevapi.Statement;
+
 import dao.UsuarioDao;
 import datos.Conexion;
+import datos.entidades.Usuario;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,29 +207,26 @@ public class InicioDeSesion extends javax.swing.JFrame {
             conexion.iniciarConexion();
             usuarioDao.setConexion(conexion.getConexion());
 
-            int resul = 0;
-
             try {
                 String usuario = ctUsuario.getText();
+
+//                String sqlNombre = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+//                String sqlPass = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+                usuarioDao.buscarNombre(usuario);
+                Usuario user = usuarioDao.bucarUno(usuario);
                 String password = String.valueOf(ctPassword.getText());
-
-                String sql = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
-
-                Statement st = conexion.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-
-                if (rs.next()) {
-
-                    resul = 1;
-
-                    if (resul == 1) {
-                        VentanaPrincipal ventana = new VentanaPrincipal();
-                        ventana.setVisible(true);
-                        this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "La contraseña o el usuario son incorrectos");
-                    }
+//                usuarioDao.buscarId(Integer.parseInt(password));
+//                Statement st = conexion.createStatement();
+//                ResultSet rs = st.executeQuery(sql);
+                if(user.getPassword().equals(password)){
+                    VentanaPrincipal ventana = new VentanaPrincipal();
+                    ventana.setVisible(true);
+                    this.dispose();
+                }else{
+                    
+                    JOptionPane.showMessageDialog(null, "La contraseña o usuario ingresado no son validos.");
                 }
+                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
