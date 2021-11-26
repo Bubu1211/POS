@@ -166,7 +166,7 @@ public class ControlArticulos extends Controlador {
         
         try {
             this.proveedor = proveedorDao.buscarNombre(nombreProveedor).get(0);
-            //this.categoria = categoriaDao.buscarDescripcion(descripcionCategoria);
+            this.categoria = categoriaDao.bucarDescripcion(descripcionCategoria);
         } catch (DAOException ex) {
             throw new ControlException(ex.getMessage(), "Error al buscar un Proveedor "+ex.getOrigen());
         }finally{
