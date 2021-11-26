@@ -24,7 +24,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
         ctContacto.setText(proveedor.getContacto());
         cmbTipo.setSelectedIndex(0);
         jDate.setDate(proveedor.getDiaEntrega());
-        ctNombre.setEditable(false);
+        ctNombre.setEditable(false);///
     }
 
     public FormularioProveedor() {
@@ -304,7 +304,13 @@ public class FormularioProveedor extends javax.swing.JFrame {
     private void botonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGuardarMouseClicked
         Conexion conexion = new Conexion();
         ProveedorDao usuarioDao = new ProveedorDao();
-
+        proveedor = new Proveedor();
+        proveedor.setNombre(ctNombre.getText());
+        
+        if(modificar){
+            control.modificarProveedor(proveedor);
+        }else{
+            
 //        try {
 //            conexion.iniciarConexion();
 //            usuarioDao.setConexion(conexion.getConexion());
