@@ -126,7 +126,7 @@ public Categoria bucarDescripcion(String descripcion) throws DAOException {
             statement = this.conexion.prepareStatement(BUSCAR_DESCRIPCION);
             statement.setString(1, descripcion);
             resultSet = statement.executeQuery();
-
+            resultSet.next();
             categoria.setId(resultSet.getInt("idCategoria"));
             categoria.setDescripcion(resultSet.getString("descripcion"));
 
