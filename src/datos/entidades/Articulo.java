@@ -86,5 +86,12 @@ public class Articulo extends Entidad{
     public void setExistencia(float existencia) {
         this.existencia = existencia;
     }
+
+    @Override
+    public String toString() {
+        return "Articulo{" + "descripcion=" + descripcion + ", idCategoria=" + idCategoria + ", idProveedor=" + idProveedor + ", precioCompra=" + precioCompra + ", precioVenta=" + precioVenta + ", existencia=" + existencia + '}';
+    }
+    
+    
     
 }

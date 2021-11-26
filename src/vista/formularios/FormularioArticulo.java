@@ -75,8 +75,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
         ctDescripcion.setText(null);
         ctPrecioVenta.setText(null);
         ctPrecioCompra.setText(null);
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Categoría"}));
-        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Proveedor"}));
+        setModeloCategoriasProveedores();
     }
 
     private void cajaTextoError(javax.swing.JTextField ct) {

@@ -1,5 +1,6 @@
 package vista.paneles;
 
+import control.ControlArticulos;
 import control.ControlInventario;
 import datos.entidades.Articulo;
 import java.util.logging.Level;
@@ -485,7 +486,6 @@ public class PanelInventario extends javax.swing.JPanel {
         // Evento del boton agregar nuevo artículo
         FormularioArticulo formularioArticulo = new FormularioArticulo();
         formularioArticulo.setVisible(true);
-        articulo = null;
     }//GEN-LAST:event_botonAgregarMouseClicked
 
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
@@ -498,8 +498,8 @@ public class PanelInventario extends javax.swing.JPanel {
 
             FormularioArticulo formularioArticulo = new FormularioArticulo(articulo);
             formularioArticulo.setVisible(true);
+            System.out.println(articulo.toString());
         }
-        articulo = null;
     }//GEN-LAST:event_botonModificarMouseClicked
 
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
@@ -620,15 +620,20 @@ public class PanelInventario extends javax.swing.JPanel {
 
     private void jtArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticulosMouseClicked
         // TODO add your handling code here:
-
+        ControlArticulos controlA = new ControlArticulos();
         int row = this.jtArticulos.getSelectedRow();
         articulo = new Articulo();
         ///Con solo recuperar el id es suficiente para eliminar y modificar, en el controlador 
         ///de articulos el método buscar trae todos los datos 
         articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
         articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
-        articulo.setIdCategoria(Integer.parseInt(jtArticulos.getValueAt(row, 2).toString()));
-        articulo.setIdProveedor(Integer.parseInt(jtArticulos.getValueAt(row, 3).toString()));
+        try {
+            controlA.buscarProveedorCategoria(jtArticulos.getValueAt(row, 2).toString(), jtArticulos.getValueAt(row, 3).toString());
+        } catch (ControlException ex) {
+            Logger.getLogger(PanelInventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        articulo.setIdCategoria(controlA.getCategoria().getId());
+        articulo.setIdProveedor(controlA.getProveedor().getId());
         articulo.setPrecioCompra(Float.parseFloat(jtArticulos.getValueAt(row, 4).toString()));
         articulo.setPrecioVenta(Float.parseFloat(jtArticulos.getValueAt(row, 5).toString()));
     }//GEN-LAST:event_jtArticulosMouseClicked
