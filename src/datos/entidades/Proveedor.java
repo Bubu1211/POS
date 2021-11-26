@@ -4,32 +4,36 @@ import java.sql.Date;
 public class Proveedor extends Entidad{
     
     private String nombre;
+    private String tipo;
     private String contacto;
     private Date diaEntrega;
-    private String tipo;
+    
 
     public Proveedor(){
         super();
         this.id= 0;
         this.nombre = null;
+        this.tipo = null;
         this.contacto = null;
         this.diaEntrega = null;
-        this.tipo = null;
+        
     }
 
-    public Proveedor(String nombre, String contacto, Date diaEntrega, String tipo) {
+    public Proveedor(String nombre, String tipo,String contacto, Date diaEntrega ) {
         this.nombre = nombre;
+        this.tipo = tipo;
         this.contacto = contacto;
         this.diaEntrega = diaEntrega;
-        this.tipo = tipo;
+        
     }
 
-    public Proveedor(String nombre, String contacto, Date diaEntrega, String tipo, int id) {
+    public Proveedor(String nombre, String tipo, String contacto, Date diaEntrega, int id) {
         super(id);
         this.nombre = nombre;
+        this.tipo = tipo;
         this.contacto = contacto;
         this.diaEntrega = diaEntrega;
-        this.tipo = tipo;
+        
     }
 
     public String getNombre() {

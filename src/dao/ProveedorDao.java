@@ -9,9 +9,9 @@ import utilidades.excepciones.DAOException;
 public class ProveedorDao extends Dao{
 
     private static final String SELECT = "SELECT * FROM proveedores";
-    private static final String INSERT = "INSERT INTO proveedores (nombre, contacto, diaEntrega, tipo) VALUES(?,?,?,?)";
-    private static final String UPDATE = "UPDATE proveedores SET nombre = ?, contacto = ?,"
-            + "diaEntrega = ?, tipo = ? WHERE idProveedor = ?";
+    private static final String INSERT = "INSERT INTO proveedores (nombre, tipo, contacto, diaEntrega) VALUES(?,?,?,?)";
+    private static final String UPDATE = "UPDATE proveedores SET nombre = ?, tipo = ?, contacto = ?,"
+            + "diaEntrega = ? WHERE idProveedor = ?";
     private static final String DELETE = "DELETE FROM proveedores WHERE idProveedor = ?";
     private static final String BUSCAR_ID = "SELECT * FROM proveedores WHERE idProveedor = ?";
     
@@ -43,14 +43,15 @@ public class ProveedorDao extends Dao{
         int tuplasAfectadas = 0; ///Cantidad de registros afectados por el query 
         statement = null;
 
-        Proveedor proveedor = (Proveedor) entidad;///Se convierte la entidad que se recibe por ser el dao de articulos
+        Proveedor proveedor = (Proveedor) entidad;///Se convierte la entidad que se recibe por ser el dao de proveedor
 
         try {
             statement = this.conexion.prepareStatement(INSERT);
             statement.setString(1, proveedor.getNombre());
-            statement.setString(2, proveedor.getContacto());
-            statement.setDate(3, proveedor.getDiaEntrega());
-            statement.setString(4, proveedor.getTipo());
+            statement.setString(2, proveedor.getTipo());
+            statement.setString(3, proveedor.getContacto());
+            statement.setDate(4, proveedor.getDiaEntrega());
+            
             tuplasAfectadas = statement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -72,9 +73,10 @@ public class ProveedorDao extends Dao{
         try{
             statement = this.conexion.prepareStatement(UPDATE);
             statement.setString(1, proveedor.getNombre());
-            statement.setString(2, proveedor.getContacto());
-            statement.setDate(3, proveedor.getDiaEntrega());
-            statement.setString(4, proveedor.getTipo());
+            statement.setString(2, proveedor.getTipo());
+            statement.setString(3, proveedor.getContacto());
+            statement.setDate(4, proveedor.getDiaEntrega());
+            
             statement.setInt(5, proveedor.getId());
             tuplasAfectadas = statement.executeUpdate();
         }catch(SQLException ex){
@@ -113,9 +115,10 @@ public class ProveedorDao extends Dao{
                 ///Guarda datos en el objeto obteniendolos del resultSet
                 proveedor.setId(resultSet.getInt("idProveedor"));
                 proveedor.setNombre(resultSet.getString("nombre"));
+                proveedor.setTipo(resultSet.getString("tipo"));
                 proveedor.setContacto(resultSet.getString("contacto"));
                 proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
-                proveedor.setTipo(resultSet.getString("tipo"));
+                
                 proveedores.add(proveedor); ///Se agrega el objeto a la lista
             }
         } catch (SQLException ex) {
@@ -139,9 +142,10 @@ public class ProveedorDao extends Dao{
             resultSet.next();
             proveedor.setId(resultSet.getInt("idProveedor"));
             proveedor.setNombre(resultSet.getString("nombre"));
+            proveedor.setTipo(resultSet.getString("tipo"));
             proveedor.setContacto(resultSet.getString("contacto"));
             proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
-            proveedor.setTipo(resultSet.getString("tipo"));
+            
 
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error buscando el articulo por el id: " + id);

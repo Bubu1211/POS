@@ -22,11 +22,11 @@ public class FormularioProveedor extends javax.swing.JFrame {
         modificar = true;
         ///Pone los atributos en los campos de texto
 
-        ctNombre.setText(proveedor.getNombre());
-        ctContacto.setText(proveedor.getContacto());
+        ctNombre.setText(String.valueOf(proveedor.getNombre()));
         ctTipo.setText(proveedor.getTipo());
+        ctContacto.setText(proveedor.getContacto());
         jDate.setDate(proveedor.getDiaEntrega());
-        ctNombre.setEditable(false);///
+        ctNombre.setEditable(false);///descactiva el campo
     }
 
     public FormularioProveedor() {
@@ -38,12 +38,13 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         control = new ControlProveedores();
         modificar = false;
+        
     }
 
     private void limpiar() {
         ctNombre.setText(null);
-        ctContacto.setText(null);
         ctTipo.setText(null);
+        ctContacto.setText(null);
         jDate.setDate(null);
     }
 
@@ -82,7 +83,7 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         jLabel2.setText("Nombre");
@@ -158,6 +159,9 @@ public class FormularioProveedor extends javax.swing.JFrame {
         botonCancelar.setBackground(new java.awt.Color(204, 0, 0));
         botonCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonCancelarMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 botonCancelarMousePressed(evt);
             }
@@ -353,6 +357,15 @@ public class FormularioProveedor extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botonGuardarMouseClicked
+
+    private void botonCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMouseClicked
+        //Evento boton cancelar
+        //Para mantene la consistencia de la interfaz primero se advierte al usuario sobre la acción
+        if (JOptionPane.showConfirmDialog(this, "Seguro que desea cancelar?", "Cancelar",
+                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+            this.limpiar();
+        }
+    }//GEN-LAST:event_botonCancelarMouseClicked
 
     private java.awt.Color colorAzul;
     private java.awt.Color colorRojo;

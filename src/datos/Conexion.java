@@ -12,10 +12,8 @@ public class Conexion {
     private final String URL = "jdbc:mysql://localhost:3306/tiendacedalex?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private final String USER = "root";
 
+
     private final String PASS = "Iuy7643mm+";
-
-
-
 
 
     ///Solo crea la conexion 

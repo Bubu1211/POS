@@ -1,6 +1,8 @@
 package control;
 
 import dao.ArticuloDao;
+import dao.CategoriaDao;
+import dao.ProveedorDao;
 import datos.entidades.Articulo;
 import datos.entidades.Entidad;
 import java.util.ArrayList;
@@ -13,13 +15,18 @@ import utilidades.excepciones.DAOException;
 public class ControlInventario extends Controlador {
 
     private ArticuloDao articuloDao;
+    private ProveedorDao proveedorDao;
+    private CategoriaDao categoriaDao;
 
     public ControlInventario() {
         this.articuloDao = new ArticuloDao();
+        this.categoriaDao = new CategoriaDao();
+        this.proveedorDao = new ProveedorDao();
     }
 
-    private void llenarModeloTabla(ArrayList<Articulo> articulos) {
+    private void llenarModeloTabla(ArrayList<Articulo> articulos) throws DAOException {
         //Pone las columnas al modelo de la tabla
+        this.modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("UPC");
         modeloTabla.addColumn("Descripción");
         modeloTabla.addColumn("Categoria ");
@@ -34,28 +41,39 @@ public class ControlInventario extends Controlador {
         ///
         //llena la tabla con los datos 
         for (Articulo a : articulos) {
-            Object[] fila = new Object[8];
-            fila[0] = a.getId();
-            fila[1] = a.getDescripcion();
-            ///fila[2] = categoriaDao.buscarUno(a.getIdCategoria()).getDescripcion();
-            ///fila[3] = proveedorDao.buscarUno(a.getIdProveedor()).getNombre();
-            fila[4] = a.getPrecioCompra();
-            fila[5] = a.getPrecioVenta();
-            fila[6] = (100 * (a.getPrecioVenta() - a.getPrecioCompra())) / a.getPrecioVenta();
-            fila[7] = a.getExistencia();
-            modeloTabla.addRow(fila);
+            System.out.println("a = " + a.getId());
+            try {
+                Object[] fila = new Object[8];
+                fila[0] = a.getId();
+                fila[1] = a.getDescripcion();
+                System.out.println("fila = " + fila[1]);
+                fila[2] = categoriaDao.bucarUno(a.getIdCategoria()).getDescripcion();
+                System.out.println("fila = " + fila[2]);
+                fila[3] = proveedorDao.buscarId(a.getIdProveedor()).getNombre();
+                fila[4] = a.getPrecioCompra();
+                System.out.println("fila = " + fila[4]);
+                fila[5] = a.getPrecioVenta();
+                fila[6] = (100 * (a.getPrecioVenta() - a.getPrecioCompra())) / a.getPrecioVenta();
+                fila[7] = a.getExistencia();
+                modeloTabla.addRow(fila);
+            }
+            ///La conexion que usan tanto EL DAO de categoria
+            //como el de proveedor se cierran junto con el de articulo
+            catch (DAOException ex) {
+                throw new DAOException(ex.getMessage(), "Listando artículos");
+            }
         }
 
-        ///La conexion que usan tanto EL DAO de categoria
-        //como el de proveedor se cierran junto con el de articulo
     }
 
-    public DefaultTableModel listarArticulos() throws ControlException {
+    public DefaultTableModel listarArticulos() throws ControlException, DAOException {
         this.modeloTabla = new DefaultTableModel();
 
         try {
             this.iniciarConexion();
             this.articuloDao.setConexion(this.getConexion());
+            this.proveedorDao.setConexion(this.getConexion());
+            this.categoriaDao.setConexion(this.getConexion());
         } catch (ControlException ex) {
             throw new ControlException(ex.getMessage(), "Error asignando conexión ");
         }
@@ -65,10 +83,11 @@ public class ControlInventario extends Controlador {
             var articulos = new ArrayList<Articulo>();
             for (Entidad e : entidades) {
                 articulos.add((Articulo) e);
+                System.out.println("e = " + e.getId());
             }
             this.llenarModeloTabla(articulos);
         } catch (DAOException ex) {
-            Logger.getLogger(ControlInventario.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DAOException(ex.getMessage(), "listadi de artículos "+ex.getOrigen());
         } finally {
             this.cerrarConexion();
         }

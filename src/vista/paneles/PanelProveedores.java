@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilidades.excepciones.BDException;
 import utilidades.excepciones.ControlException;
+import utilidades.excepciones.DAOException;
 import vista.formularios.FormularioProveedor;
 
 public class PanelProveedores extends javax.swing.JPanel {
 
     private ControlProveedores control;
     private Proveedor proveedor;
-    
 
     public PanelProveedores() {
         initComponents();
@@ -31,6 +31,9 @@ public class PanelProveedores extends javax.swing.JPanel {
         try {
             this.jtProveedores.setModel(control.listarProveedores());
         } catch (ControlException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        } catch (DAOException ex) {
             JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
@@ -246,10 +249,13 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Tipo", "Contácto", "Fecha de entrega"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         jtProveedores.setPreferredSize(new java.awt.Dimension(375, 100));
@@ -397,26 +403,25 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_botonListarMouseReleased
 
     private void botonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMouseClicked
-        
-            //evento agregar nuevo proveedor
-            FormularioProveedor formularioProveedor = new FormularioProveedor();
-            formularioProveedor.setVisible(true);
-
+        //evento agregar nuevo proveedor
+        FormularioProveedor formularioProveedor = new FormularioProveedor();
+        formularioProveedor.setVisible(true);
+        proveedor = null;
     }//GEN-LAST:event_botonAgregarMouseClicked
 
     private void botonModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonModificarMouseClicked
-       
+
         // Evento de modificar el provvedor seleccionado
         ///se necesita hacer un constructor con argumentos en la clase formularioProveedor para recibir un proveedor
         if (proveedor == null || jtProveedores.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error al modificar",
-                    "Debe selecionar algun artículo", JOptionPane.ERROR_MESSAGE);
+                    "Debe selecionar algun proveedor", JOptionPane.ERROR_MESSAGE);
         } else {
-            FormularioProveedor formularioProveedor = new FormularioProveedor();
+            FormularioProveedor formularioProveedor = new FormularioProveedor(proveedor);
             formularioProveedor.setVisible(true);
         }
         proveedor = null;
-        
+
     }//GEN-LAST:event_botonModificarMouseClicked
 
     private void botonEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEliminarMouseClicked
@@ -427,7 +432,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             if (JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar el proveedor", "Eliminación",
                     JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
                 try {
-                    this.control.eliminarProveedor(proveedor.getId());
+                    this.control.eliminar(proveedor.getId());
                     JOptionPane.showMessageDialog(this, "Se ha eliminado el proveedor", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ControlException ex) {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
@@ -441,16 +446,23 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEliminarMouseClicked
 
     private void botonListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonListarMouseClicked
+        listar();
+    }//GEN-LAST:event_botonListarMouseClicked
+
+    private void listar() {
         // evento listar, llenar tabla
         try {
             ///Evento de boton listar, debe llenar la tabla
             var modeloTabla = this.control.listarProveedores();
-            this.jtProveedores.setModel(modeloTabla);
+        this.jtProveedores.setModel(modeloTabla);
         } catch (ControlException ex) {
             JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
                     ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+        } catch (DAOException ex) {
+            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
+                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botonListarMouseClicked
+    }
 
     private void jtProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProveedoresMouseClicked
         // TODO add your handling code here:
@@ -460,20 +472,21 @@ public class PanelProveedores extends javax.swing.JPanel {
         ///de articulos el método buscar trae todos los datos 
         proveedor.setId(Integer.parseInt(String.valueOf(jtProveedores.getValueAt(row, 0))));
         proveedor.setNombre(String.valueOf(jtProveedores.getValueAt(row, 1)));
-        proveedor.setContacto(String.valueOf(jtProveedores.getValueAt(row, 2)));
-        
-        String fecha = String.valueOf(jtProveedores.getValueAt(row,3));
+        proveedor.setTipo(String.valueOf(jtProveedores.getValueAt(row, 2)));
+
+        proveedor.setContacto(String.valueOf(jtProveedores.getValueAt(row, 3)));
+
+        String fecha = String.valueOf(jtProveedores.getValueAt(row, 4));
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        try { 
+        try {
             Date date = formato.parse(fecha);
             long d = date.getTime();
             proveedor.setDiaEntrega(new java.sql.Date(d));
         } catch (ParseException ex) {
             Logger.getLogger(PanelProveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        proveedor.setTipo(String.valueOf(jtProveedores.getValueAt(row, 4)));
-        
+
+
     }//GEN-LAST:event_jtProveedoresMouseClicked
 
     private void ctBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMouseClicked
@@ -481,12 +494,12 @@ public class PanelProveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_ctBusquedaMouseClicked
 
     private void ctBusquedaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctBusquedaMousePressed
-        
+
     }//GEN-LAST:event_ctBusquedaMousePressed
 
     private void jtProveedoresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtProveedoresKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() ==10) {
+        if (evt.getKeyCode() == 10) {
             String busqueda = ctBusqueda.getText();
             try {
                 this.jtProveedores.setModel(this.control.buscarProveedor(cmbBusqueda.getSelectedIndex(), busqueda));
