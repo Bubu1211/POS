@@ -162,7 +162,7 @@ public class ProveedorDao extends Dao{
         
         try {
             statement = this.conexion.prepareStatement(BUSCAR_NOMBRE);
-            statement.setString(1, nombre);
+            statement.setString(0, nombre);
             resultSet = statement.executeQuery();
             for (Entidad e : this.listarResultSet()) {
                 Proveedor a = (Proveedor) e;
@@ -170,7 +170,7 @@ public class ProveedorDao extends Dao{
             }
 
         } catch (SQLException ex) {
-            throw new DAOException(ex.getMessage(), "Error buscando el articulo por el nombre: " + nombre);
+            throw new DAOException(ex.getMessage(), "Error buscando el proveedor por el nombre: " + nombre);
         } finally {
             statement = null;
             resultSet = null;
