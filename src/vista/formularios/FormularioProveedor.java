@@ -5,6 +5,8 @@ import dao.ProveedorDao;
 import datos.Conexion;
 import datos.entidades.Proveedor;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilidades.excepciones.BDException;
 import utilidades.excepciones.ControlException;
@@ -303,7 +305,13 @@ public class FormularioProveedor extends javax.swing.JFrame {
         proveedor.setNombre(ctNombre.getText());
         
         if(modificar){
-            control.modificarProveedor(proveedor);
+            
+                control.modificarProveedor(proveedor);
+            
+        }else{
+            
+                control.insertarProveedor(proveedor);
+            
         }
     }//GEN-LAST:event_botonGuardarMouseClicked
 
