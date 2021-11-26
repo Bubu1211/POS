@@ -56,9 +56,24 @@ public class ControlVenta extends Controlador {
         return modeloTabla;
     }
     
-//    public int vender(DefaultTableModel modeloTabla, float totalVenta) {
-//        Ven
-//        
+    public int vender(DefaultTableModel modeloTabla, float totalVenta) {
+//        crear un objeto venta 
+          Venta venta = new Venta();
+//        ventaDao.insertar(venta) 
+          ventaDao.insertar(venta);
+//        recuperar el id de la venta que se acaba de registrar
+//        para cada articulo que esta en el modelo de la tabla
+//                recuperar idArticulo
+//                recuperar cantidadArticulo
+//                articuloVentaDao.insertar(articuloVenta) 
+//                articuloDao.disminuirInventario(idArticulo, cantidadArticulo) 
+//                cerrar conexion
 //
-//    }
+//        ubicacion dao.articulosDao.disminuirInventario evento: vender parametros: idArticulo, cantidad
+//        Se obtienen la cantidad de artículos de determinado idArticulo
+//         a la cantidad se le resta la cantidad de artículos vendida 
+//         la nueva cantidad se actualiza en la BD
+        
+
+    }
 }
