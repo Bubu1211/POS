@@ -26,16 +26,6 @@ public class PanelInventario extends javax.swing.JPanel {
 
         control = new ControlInventario();
         listar();
-
-        try {
-            this.jtArticulos.setModel(control.listarArticulos());
-        } catch (ControlException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
-        } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error ",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -170,7 +160,7 @@ public class PanelInventario extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,7 +474,7 @@ public class PanelInventario extends javax.swing.JPanel {
 
     private void botonAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgregarMouseClicked
         // Evento del boton agregar nuevo artículo
-        FormularioArticulo formularioArticulo = new FormularioArticulo();
+        FormularioArticulo formularioArticulo = new FormularioArticulo(this);
         formularioArticulo.setVisible(true);
     }//GEN-LAST:event_botonAgregarMouseClicked
 
@@ -496,7 +486,7 @@ public class PanelInventario extends javax.swing.JPanel {
                     "Debe seleccionar algun artículo", JOptionPane.ERROR_MESSAGE);
         } else {
 
-            FormularioArticulo formularioArticulo = new FormularioArticulo(articulo);
+            FormularioArticulo formularioArticulo = new FormularioArticulo(articulo, this);
             formularioArticulo.setVisible(true);
             System.out.println(articulo.toString());
         }
@@ -516,8 +506,8 @@ public class PanelInventario extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Se ha eliminado el artículo", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
                     listar();
                 } catch (ControlException ex) {
-                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error al eliminar",
-                            ex.getMessage() + "\n\n en: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n en: \n" + ex.getOrigen(),
+                            "Ha ocurrido un error al eliminar", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Se canceló la eliminación", "Eliminación", JOptionPane.INFORMATION_MESSAGE);
@@ -586,17 +576,17 @@ public class PanelInventario extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_botonListarMouseClicked
 
-    private void listar() {
+    public void listar() {
         try {
             ///Evento de boton listar, debe llenar la tabla
             var modeloTabla = this.control.listarArticulos();
             this.jtArticulos.setModel(modeloTabla);
         } catch (ControlException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), 
+                    "Lo sentimos ocurrio un error al listar",JOptionPane.ERROR_MESSAGE);
         } catch (DAOException ex) {
-            JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al listar",
-                    ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), 
+                    "Lo sentimos ocurrio un error al listar" , JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -607,8 +597,8 @@ public class PanelInventario extends javax.swing.JPanel {
             try {
                 this.jtArticulos.setModel(this.control.buscarArticulo(cmbBusqueda.getSelectedIndex(), busqueda));
             } catch (ControlException ex) {
-                JOptionPane.showMessageDialog(this, "Lo sentimos ocurrio un error al buscar",
-                        ex.getMessage() + "\n\n En: \n" + ex.getOrigen(), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),
+                        "Lo sentimos ocurrio un error al buscar", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_ctBusquedaKeyPressed
@@ -628,9 +618,9 @@ public class PanelInventario extends javax.swing.JPanel {
         articulo.setId(Integer.parseInt(String.valueOf(jtArticulos.getValueAt(row, 0))));
         articulo.setDescripcion(String.valueOf(jtArticulos.getValueAt(row, 1)));
         try {
-            controlA.buscarProveedorCategoria(jtArticulos.getValueAt(row, 2).toString(), jtArticulos.getValueAt(row, 3).toString());
+            controlA.buscarProveedorCategoria(jtArticulos.getValueAt(row, 3).toString(), jtArticulos.getValueAt(row, 2).toString());
         } catch (ControlException ex) {
-            Logger.getLogger(PanelInventario.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         articulo.setIdCategoria(controlA.getCategoria().getId());
         articulo.setIdProveedor(controlA.getProveedor().getId());

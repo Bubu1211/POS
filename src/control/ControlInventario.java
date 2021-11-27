@@ -24,7 +24,7 @@ public class ControlInventario extends Controlador {
         this.proveedorDao = new ProveedorDao();
     }
 
-    private void llenarModeloTabla(ArrayList<Articulo> articulos) throws DAOException {
+    private void llenarModeloTabla(ArrayList<Articulo> articulos) throws DAOException, ControlException {
         //Pone las columnas al modelo de la tabla
         this.modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("UPC");
@@ -43,15 +43,22 @@ public class ControlInventario extends Controlador {
         for (Articulo a : articulos) {
             System.out.println("a = " + a.getId());
             try {
+                categoriaDao.setConexion(this.getConexion());
+                proveedorDao.setConexion(this.getConexion());
                 Object[] fila = new Object[8];
                 fila[0] = a.getId();
                 fila[1] = a.getDescripcion();
-                System.out.println("fila = " + fila[1]);
-                fila[2] = categoriaDao.bucarUno(a.getIdCategoria()).getDescripcion();
-                System.out.println("fila = " + fila[2]);
-                fila[3] = proveedorDao.buscarId(a.getIdProveedor()).getNombre();
+                if(categoriaDao.bucarUno(a.getIdCategoria()).getDescripcion() != null){
+                    fila[2] = categoriaDao.bucarUno(a.getIdCategoria()).getDescripcion();
+                }else{
+                    fila[2] = "S/ Categoria";
+                }
+                if(proveedorDao.buscarId(a.getIdProveedor()).getNombre() != null){
+                    fila[3] = proveedorDao.buscarId(a.getIdProveedor()).getNombre();
+                }else{
+                    fila[3] = "S/ proveedor";
+                }
                 fila[4] = a.getPrecioCompra();
-                System.out.println("fila = " + fila[4]);
                 fila[5] = a.getPrecioVenta();
                 fila[6] = (100 * (a.getPrecioVenta() - a.getPrecioCompra())) / a.getPrecioVenta();
                 fila[7] = a.getExistencia();
@@ -60,8 +67,8 @@ public class ControlInventario extends Controlador {
             ///La conexion que usan tanto EL DAO de categoria
             //como el de proveedor se cierran junto con el de articulo
             catch (DAOException ex) {
-                throw new DAOException(ex.getMessage(), "Listando artículos");
-            }
+                throw new DAOException(ex.getMessage(), "Listando artículos en controlador");
+            } 
         }
 
     }
@@ -84,11 +91,10 @@ public class ControlInventario extends Controlador {
             var articulos = new ArrayList<Articulo>();
             for (Entidad e : entidades) {
                 articulos.add((Articulo) e);
-                System.out.println("e = " + e.getId());
             }
             this.llenarModeloTabla(articulos);
         } catch (DAOException ex) {
-            throw new DAOException(ex.getMessage(), "listadi de artículos "+ex.getOrigen());
+            throw new DAOException(ex.getMessage(), "listado de artículos "+ex.getOrigen());
         } finally {
             this.cerrarConexion();
         }

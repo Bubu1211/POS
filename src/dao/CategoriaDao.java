@@ -102,9 +102,11 @@ public class CategoriaDao extends Dao {
             statement = this.conexion.prepareStatement(BUSCAR_ID);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-            resultSet.next();
-            categoria.setId(resultSet.getInt("idCategoria"));
-            categoria.setDescripcion(resultSet.getString("descripcion"));
+            if (resultSet.next()) {
+
+                categoria.setId(resultSet.getInt("idCategoria"));
+                categoria.setDescripcion(resultSet.getString("descripcion"));
+            }
 
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error buscando la categoria por el id: " + id);
@@ -117,7 +119,7 @@ public class CategoriaDao extends Dao {
     }
 
     public Categoria bucarDescripcion(String descripcion) throws DAOException {
-        Categoria categoria = new Categoria();
+        Categoria categoria = null;
 
         statement = null;
         resultSet = null;
@@ -127,6 +129,7 @@ public class CategoriaDao extends Dao {
             statement.setString(1, descripcion);
             resultSet = statement.executeQuery();
             resultSet.next();
+            categoria = new Categoria();
             categoria.setId(resultSet.getInt("idCategoria"));
             categoria.setDescripcion(resultSet.getString("descripcion"));
 

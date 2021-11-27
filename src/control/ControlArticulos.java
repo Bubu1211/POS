@@ -165,13 +165,27 @@ public class ControlArticulos extends Controlador {
         }
         
         try {
-            this.proveedor = proveedorDao.buscarNombre(nombreProveedor).get(0);
+            for(Proveedor p : proveedorDao.buscarNombre(nombreProveedor)){
+                this.proveedor = p;
+            }
             this.categoria = categoriaDao.bucarDescripcion(descripcionCategoria);
         } catch (DAOException ex) {
             throw new ControlException(ex.getMessage(), "Error al buscar un Proveedor "+ex.getOrigen());
         }finally{
             this.cerrarConexion();
         }
+    }
+    
+    public Categoria buscarCategoria(int id) throws DAOException{
+        categoria = null;
+        
+        try {
+            categoria = this.categoriaDao.bucarUno(id);
+        } catch (DAOException ex) {
+            throw new DAOException(ex.getMessage() + "Error buscando categoria", ex.getOrigen());
+        }
+        
+        return categoria;
     }
     
     public Proveedor getProveedor(){

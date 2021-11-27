@@ -16,7 +16,7 @@ public class UsuarioDao extends Dao {
     private static final String BUSCAR_ID = "SELECT * FROM usuarios WHERE idUsuario = ?";
     private static final String BUSCAR_NOMBRE = "SELECT * FROM usuarios WHERE nombre LIKE '?%'";
     private static final String BUSCAR_UNO = "SELECT * FROM usuarios WHERE nombre  = ?";
-    
+
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
         ArrayList<Entidad> usuarios = new ArrayList<Entidad>(); ///Lista donde se recuperaran los proveedores
@@ -128,14 +128,14 @@ public class UsuarioDao extends Dao {
         }
         return usuarios;
     }
-    
-    public Usuario buscarId(int id)throws DAOException{
+
+    public Usuario buscarId(int id) throws DAOException {
         Usuario usuario = new Usuario();
-        
+
         statement = null;
         resultSet = null;
-        
-        try{
+
+        try {
             statement = this.conexion.prepareStatement(BUSCAR_ID);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
@@ -154,15 +154,14 @@ public class UsuarioDao extends Dao {
 
         return usuario;
     }
-    
-    
-    public ArrayList<Usuario> buscarNombre(String nombre) throws DAOException{
+
+    public ArrayList<Usuario> buscarNombre(String nombre) throws DAOException {
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        
+
         statement = null;
         resultSet = null;
-        
-        try{
+
+        try {
             statement = this.conexion.prepareStatement(BUSCAR_NOMBRE);
             statement.setString(1, nombre);
             resultSet = statement.executeQuery();
@@ -170,15 +169,15 @@ public class UsuarioDao extends Dao {
                 Usuario a = (Usuario) e;
                 usuarios.add(a);
             }
-        }catch (SQLException ex){
-        throw new DAOException(ex.getMessage(), "Error buscando el articulo por el nombre: " + nombre);
-    }finally{
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "Error buscando el usuario por el nombre: " + nombre);
+        } finally {
             statement = null;
             resultSet = null;
         }
         return usuarios;
     }
-    
+
     public Usuario buscarUno(String nombre) throws DAOException {
         Usuario usuario = new Usuario();
 

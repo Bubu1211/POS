@@ -1,40 +1,72 @@
 package vista.formularios;
 
 import control.ControlArticulos;
+import control.ControlInventario;
+import control.ControlProveedores;
 import datos.entidades.Articulo;
 import datos.entidades.Categoria;
+import datos.entidades.Proveedor;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import utilidades.excepciones.ControlException;
+import utilidades.excepciones.DAOException;
+import vista.paneles.PanelInventario;
 
 public class FormularioArticulo extends javax.swing.JFrame {
 
     private ControlArticulos control;
     private Articulo articulo;
     private boolean modificar;
+    private PanelInventario panelPadre;
 
-    public FormularioArticulo(Articulo articulo) {
-        this();
+    public FormularioArticulo(Articulo articulo, PanelInventario panelPadre) {
+        this(panelPadre);
         modificar = true;
         ///Pone los atributos en los campos de texto
         ctUpc.setText(String.valueOf(articulo.getId()));
         ctDescripcion.setText(articulo.getDescripcion());
-        cmbCategoria.setSelectedIndex(articulo.getIdCategoria());
-        cmbProveedores.setSelectedIndex(articulo.getIdProveedor());
-        ctPrecioVenta.setText(articulo.getPrecioVenta()+"");
-        ctPrecioCompra.setText(articulo.getPrecioCompra()+"");
+
+        try {
+            Proveedor proveedor = new ControlProveedores().buscarId(articulo.getIdProveedor());
+            Categoria categoria = control.buscarCategoria(articulo.getIdCategoria());
+
+            for (int i = 0; i < cmbCategoria.getItemCount(); i++) {
+                if (cmbCategoria.getItemAt(i).equals(categoria.getDescripcion())) {
+                    cmbCategoria.setSelectedIndex(i);
+                }
+            }
+
+            if (proveedor != null) {
+                for (int i = 0; i < cmbProveedores.getItemCount(); i++) {
+                    if (cmbProveedores.getItemAt(i).equals(proveedor.getNombre())) {
+                        cmbProveedores.setSelectedIndex(i);
+                    }
+                }
+            }else{
+                cmbProveedores.setSelectedIndex(0);
+            }
+
+        } catch (ControlException ex) {
+            Logger.getLogger(FormularioArticulo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(FormularioArticulo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ctPrecioVenta.setText(articulo.getPrecioVenta() + "");
+        ctPrecioCompra.setText(articulo.getPrecioCompra() + "");
         ///dESACTIVA el campo de texto de UPC ya que ya contiejne uno
         ctUpc.setEditable(false);
     }
 
-    public FormularioArticulo() {
+    public FormularioArticulo(PanelInventario panelPadre) {
         initComponents();
+        this.panelPadre = panelPadre;
+
         colorAzul = new java.awt.Color(0, 183, 222);
         colorRojo = new java.awt.Color(255, 0, 51);
         colorVerde = new java.awt.Color(0, 204, 51);
-
         this.setLocationRelativeTo(null);
 
         control = new ControlArticulos();
@@ -430,7 +462,7 @@ public class FormularioArticulo extends javax.swing.JFrame {
                                 control.buscarProveedorCategoria(itemProveedor, itemCategoria);
                                 articulo.setIdProveedor(control.getProveedor().getId());
                                 articulo.setIdCategoria(control.getCategoria().getId());
-                                
+
                                 //EVENTO DEL BOTON GUARDAR
                                 if (modificar) {
                                     this.control.modificarArticulo(articulo);
@@ -438,10 +470,11 @@ public class FormularioArticulo extends javax.swing.JFrame {
 
                                 } else {
                                     this.control.insertarArticulo(articulo);
-                                    JOptionPane.showMessageDialog(this, "El artículo se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                                    JOptionPane.showMessageDialog(this, "El artículo se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 
                                 }
 
+                                this.panelPadre.listar();
                             } catch (ControlException ex) {
                                 JOptionPane.showMessageDialog(this, ex.getMessage() + "\n\n En: \n" + ex.getOrigen(),
                                         "Lo sentimos ocurrio un error ", JOptionPane.ERROR_MESSAGE);

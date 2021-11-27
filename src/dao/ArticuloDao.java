@@ -25,6 +25,7 @@ public class ArticuloDao extends Dao {
 
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
+        
         ArrayList<Entidad> articulos = new ArrayList<Entidad>(); ///LÑista donde se recuperaran los articulos
 
         this.statement = null;
@@ -134,7 +135,8 @@ public class ArticuloDao extends Dao {
                 articulos.add(articulo); ///Se agrega el objeto a la lista
             }
         } catch (SQLException ex) {
-            throw new DAOException(ex.getMessage(), "Error listando el resultSet");
+            throw new DAOException(ex.getMessage()+ "\n"+ex.getSQLState(), 
+                    "Error listando el resultSet");
         } finally {
             resultSet = null;
         }

@@ -56,7 +56,6 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
         ctUsuario.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
         ctUsuario.setForeground(new java.awt.Color(0, 182, 223));
-        ctUsuario.setText("Usuario");
         ctUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctUsuarioActionPerformed(evt);
@@ -69,7 +68,6 @@ public class InicioDeSesion extends javax.swing.JFrame {
 
         ctPassword.setFont(new java.awt.Font("NSimSun", 0, 32)); // NOI18N
         ctPassword.setForeground(new java.awt.Color(0, 182, 223));
-        ctPassword.setText("jPasswordField1");
         ctPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ctPasswordActionPerformed(evt);
@@ -154,102 +152,54 @@ public class InicioDeSesion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ctUsuarioActionPerformed
 
-//    public void validarAcceso() {
-//        Conexion conexion = new Conexion();
-//        UsuarioDao usuarioDao = new UsuarioDao();
-//
-//        try {
-//            conexion.iniciarConexion();
-//            usuarioDao.setConexion(conexion.getConexion());
-//
-//            int resul = 0;
-//
-//            try {
-//                String usuario = ctUsuario.getText();
-//                String password = String.valueOf(ctPassword.getText());
-//
-//                String sql = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
-//
-//                Statement st = conexion.
-//            
-//
-//            } catch (Exception e) {
-//
-//            }
-//
-//        } catch (BDException ex) {
-//        } finally {
-//            try {
-//                conexion.cerrarConexion();
-//            } catch (BDException ex) {
-//
-//            }
-//        }
-//    }
 
     private void btISActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btISActionPerformed
-////
-////        Conexion conexion = new Conexion();
-////        UsuarioDao usuarioDao = new UsuarioDao();
-////
-////        try {
-////            conexion.iniciarConexion();
-////            usuarioDao.setConexion(conexion.getConexion());
-////
-////        } catch (BDException ex) {
-////        } finally {
-////            try {
-////                conexion.cerrarConexion();
-////            } catch (BDException ex) {
-////
-////            }
-////        }
-//        Conexion conexion = new Conexion();
-//        UsuarioDao usuarioDao = new UsuarioDao();
-//
-//        try {
-//            conexion.iniciarConexion();
-//            usuarioDao.setConexion(conexion.getConexion());
-//
-//            try {
-//                String usuario = ctUsuario.getText();
-//
-////                String sqlNombre = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
-////                String sqlPass = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
-////                usuarioDao.buscarNombre(usuario);
-//                Usuario user = usuarioDao.buscarUno(usuario);
-//                String password = String.valueOf(ctPassword.getText());
-////                usuarioDao.buscarId(Integer.parseInt(password));
-////                Statement st = conexion.createStatement();
-////                ResultSet rs = st.executeQuery(sql);
-//                if (user.getPassword().equals(password)) {
+        Conexion conexion = new Conexion();
+        UsuarioDao usuarioDao = new UsuarioDao();
+
+        try {
+            conexion.iniciarConexion();
+            usuarioDao.setConexion(conexion.getConexion());
+
+            try {
+                String usuario = ctUsuario.getText();
+
+//                String sqlNombre = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+//                String sqlPass = "select * from usuario where nombre='" + usuario + "' and password ='" + password + "'";
+//                usuarioDao.buscarNombre(usuario);
+                Usuario user = usuarioDao.buscarUno(usuario);
+                String password = String.valueOf(ctPassword.getText());
+//                usuarioDao.buscarId(Integer.parseInt(password));
+//                Statement st = conexion.createStatement();
+//                ResultSet rs = st.executeQuery(sql);
+                if (user.getPassword().equals(password)) {
                     VentanaPrincipal ventana = new VentanaPrincipal();
                     ventana.setVisible(true);
                     this.dispose();
-//                } else {
-//
-//                    JOptionPane.showMessageDialog(null, "La contraseña o usuario ingresado no son validos.");
-//                }
-//
-//            } catch (Exception e) {
-////                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
-//                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" );
-//            }
-//
-//        } catch (BDException ex) {
-//        } finally {
-//            try {
-//                conexion.cerrarConexion();
-//            } catch (BDException ex) {
-//
-//            }
+                } else {
+
+                    JOptionPane.showMessageDialog(this, "La contraseña o usuario ingresado no son validos.");
+                }
+
+            } catch (Exception e) {
+//                JOptionPane.showMessageDialog(null, "Error en el acceso, intente de nuevo" + e.getMessage());
+                JOptionPane.showMessageDialog(this, "Error en el acceso, intente de nuevo");
+            }
+
+        } catch (BDException ex) {
+        } finally {
+            try {
+                conexion.cerrarConexion();
+            } catch (BDException ex) {
+
+            }
+        }
+
+//        if (){
+//            VentanaPrincipal ventana = new VentanaPrincipal();
+//            ventana.setVisible(true);
+//            this.dispose();
 //        }
-//
-////        if (){
-////            VentanaPrincipal ventana = new VentanaPrincipal();
-////            ventana.setVisible(true);
-////            this.dispose();
-////        }
     }//GEN-LAST:event_btISActionPerformed
 
     private void ctPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ctPasswordActionPerformed

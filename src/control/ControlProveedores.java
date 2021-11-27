@@ -27,11 +27,10 @@ public class ControlProveedores extends Controlador {
         modeloTabla.addColumn("Contacto");
         modeloTabla.addColumn("Dia Entrega");
 
-       
         //llena la tabla con los datos
         for (Proveedor a : proveedores) {
             System.out.println("a = " + a.getId());
-            Object[] fila = new Object[5]; 
+            Object[] fila = new Object[5];
             fila[0] = a.getId();
             fila[1] = a.getNombre();
             System.out.println("fila = " + fila[1]);
@@ -121,23 +120,42 @@ public class ControlProveedores extends Controlador {
 //                default ->
 //                    null;
 //            };
-
-        }else {
+            } else {
                 var proveedores = proveedorDao.buscarNombre(busqueda);
                 this.llenarModeloTabla(proveedores);
             }
 
 //        this.llenarModeloTabla(proveedores);
-    }
-    catch (DAOException ex) {
+        } catch (DAOException ex) {
             throw new ControlException(ex.getMessage(), "Error buscando proveedor \n" + ex.getOrigen());
-    }finally {
+        } finally {
             this.cerrarConexion();
+        }
+        return this.modeloTabla;
     }
-    return this.modeloTabla ;
-}
 
-public void insertarProveedor(Proveedor proveedor) throws ControlException {
+    public Proveedor buscarId(int id) throws ControlException {
+        Proveedor proveedor = null;
+
+        try {
+            this.iniciarConexion();
+            this.proveedorDao.setConexion(this.getConexion());
+        } catch (ControlException ex) {
+            throw new ControlException(ex.getMessage(), "Error asignado conexión");
+        }
+
+        try {
+            proveedor = proveedorDao.buscarId(Integer.parseInt(id + ""));
+
+        } catch (DAOException ex) {
+            throw new ControlException(ex.getMessage(), "Error buscando proveedor \n" + ex.getOrigen());
+        } finally {
+            this.cerrarConexion();
+        }
+        return proveedor;
+    }
+
+    public void insertarProveedor(Proveedor proveedor) throws ControlException {
         try {
             this.iniciarConexion();
             proveedorDao.setConexion(this.getConexion());

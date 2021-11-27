@@ -5,6 +5,7 @@ import dao.ProveedorDao;
 import datos.Conexion;
 import datos.entidades.Proveedor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -314,10 +315,13 @@ public class FormularioProveedor extends javax.swing.JFrame {
 
         ///Recupera los datos de los campos de texto 
         String nombreString = ctNombre.getText();
+        String tipoString = ctTipo.getText();
         String contactoString = ctContacto.getText();
-        String tipoVentaString = ctTipo.getText();
+        Date diaEntregaDate = jDate.getDate();
 
-        proveedor.setNombre(ctNombre.getText());
+        proveedor.setNombre(nombreString);
+        proveedor.setTipo(tipoString);
+        proveedor.setContacto(contactoString);
 
         //recuperar fecha
         //poner al proveedor fecha
@@ -332,13 +336,12 @@ public class FormularioProveedor extends javax.swing.JFrame {
         if (modificar) {
 
             try {
-                proveedor.setNombre(nombreString);
                 this.control.modificarProveedor(proveedor);
                 JOptionPane.showMessageDialog(this, "El proveedor se ha guardado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
 
                 this.control.modificarProveedor(proveedor);
             } catch (ControlException ex) {
-                Logger.getLogger(FormularioProveedor.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "El proveedor se ha modificado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {

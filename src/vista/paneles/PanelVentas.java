@@ -365,23 +365,34 @@ public class PanelVentas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtArticulosMouseClicked
 
+    private void limpiar() {
+        ctBuscar.setText(null);
+        ctCantidad.setText(null);
+        jtCoincidencias.setModel(new DefaultTableModel());
+        jtArticulos.setModel(new DefaultTableModel());
+
+    }
+
     private void botonCobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCobrarMouseClicked
         // TODO add your handling code here:
         float total = 0.0f;
         for (int row = 0; row < jtArticulos.getRowCount(); row++) {
             float precio = Float.parseFloat(jtArticulos.getValueAt(row, 4).toString());
             float cantidad = Float.parseFloat(jtArticulos.getValueAt(row, 5).toString());
-            total += precio * cantidad ;
+            total += precio * cantidad;
         }
         if (JOptionPane.showConfirmDialog(this, "Cobre: $" + total) == JOptionPane.YES_OPTION) {
             try {
                 this.control.vender((DefaultTableModel) jtArticulos.getModel(), total);
+                JOptionPane.showMessageDialog(this, "La compra se ha registrado exitosamente");
+                limpiar();
             } catch (ControlException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage()
                         + "Error en: " + ex.getOrigen(), "Lo sentimos, intente otra vez",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
+
     }//GEN-LAST:event_botonCobrarMouseClicked
 
 

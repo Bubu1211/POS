@@ -10,8 +10,6 @@ import dao.CategoriaDao;
 import datos.entidades.ArticuloVenta;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import utilidades.excepciones.ControlException;
 import utilidades.excepciones.DAOException;
 
@@ -105,8 +103,8 @@ public class ControlVenta extends Controlador {
                     float cantidad = Float.parseFloat(modeloTabla.getValueAt(row, 5).toString());
                     ///Creamos un objeto auxiliar 
                     ArticuloVenta av = new ArticuloVenta(idArticulo, idVenta, cantidad);
-
                     articuloVentaDao.insertar(av);
+                    articuloDao.disminuirInventario(idArticulo, cantidad);
                 } else {
                     ///En caso de que ya no hya más valores en la tabla
                     break;

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import utilidades.excepciones.DAOException;
 
-public class ProveedorDao extends Dao{
+public class ProveedorDao extends Dao {
 
     private static final String SELECT = "SELECT * FROM proveedores";
     private static final String INSERT = "INSERT INTO proveedores (nombre, tipo, contacto, diaEntrega) VALUES(?,?,?,?)";
@@ -14,23 +14,22 @@ public class ProveedorDao extends Dao{
             + "diaEntrega = ? WHERE idProveedor = ?";
     private static final String DELETE = "DELETE FROM proveedores WHERE idProveedor = ?";
     private static final String BUSCAR_ID = "SELECT * FROM proveedores WHERE idProveedor = ?";
-    
-    
+
     @Override
     public ArrayList<Entidad> listar() throws DAOException {
         ArrayList<Entidad> proveedores = new ArrayList<Entidad>(); ///Lista donde se recuperaran los proveedores
-        
+
         this.statement = null;
         this.resultSet = null;
-        
-        try{
+
+        try {
             this.statement = this.conexion.prepareStatement(SELECT);
             this.resultSet = this.statement.executeQuery();
 
             proveedores = this.listarResultSet();
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error al listar proveedores en DAO \n");
-        }finally{
+        } finally {
             //liberar recursos
             this.statement = null;
             this.resultSet = null;
@@ -51,7 +50,7 @@ public class ProveedorDao extends Dao{
             statement.setString(2, proveedor.getTipo());
             statement.setString(3, proveedor.getContacto());
             statement.setDate(4, proveedor.getDiaEntrega());
-            
+
             tuplasAfectadas = statement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -60,28 +59,28 @@ public class ProveedorDao extends Dao{
             statement = null;
         }
 
-        return tuplasAfectadas; 
+        return tuplasAfectadas;
     }
 
     @Override
     public int modificar(Entidad entidad) throws DAOException {
         int tuplasAfectadas = 0;
         statement = null;
-        
+
         Proveedor proveedor = (Proveedor) entidad;
-        
-        try{
+
+        try {
             statement = this.conexion.prepareStatement(UPDATE);
             statement.setString(1, proveedor.getNombre());
             statement.setString(2, proveedor.getTipo());
             statement.setString(3, proveedor.getContacto());
             statement.setDate(4, proveedor.getDiaEntrega());
-            
+
             statement.setInt(5, proveedor.getId());
             tuplasAfectadas = statement.executeUpdate();
-        }catch(SQLException ex){
-            throw new DAOException(ex.getMessage(),"ERROR modificando el  proveedor");
-        }finally{
+        } catch (SQLException ex) {
+            throw new DAOException(ex.getMessage(), "ERROR modificando el  proveedor");
+        } finally {
             statement = null;
         }
         return tuplasAfectadas;
@@ -91,8 +90,14 @@ public class ProveedorDao extends Dao{
     public int eliminar(int id) throws DAOException {
         int tuplasAfectadas = 0;
         statement = null;
-        
+        String UPDATE_ARTICULO = "UPDATE articulos SET idProveedor = NULL WHERE idProveedor = ?";
+
         try {
+            ///mODIFICA los artículos que esten relacionados
+            statement = this.conexion.prepareStatement(UPDATE_ARTICULO);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
             statement = this.conexion.prepareStatement(DELETE);
             statement.setInt(1, id);
             tuplasAfectadas = statement.executeUpdate();
@@ -108,7 +113,7 @@ public class ProveedorDao extends Dao{
     @Override
     public ArrayList<Entidad> listarResultSet() throws DAOException {
         ArrayList<Entidad> proveedores = new ArrayList<>();
-        
+
         try {
             while (this.resultSet.next()) {
                 Proveedor proveedor = new Proveedor(); ///Objeto auxiliar para recuperar datos del conjunto resultado
@@ -118,7 +123,7 @@ public class ProveedorDao extends Dao{
                 proveedor.setTipo(resultSet.getString("tipo"));
                 proveedor.setContacto(resultSet.getString("contacto"));
                 proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
-                
+
                 proveedores.add(proveedor); ///Se agrega el objeto a la lista
             }
         } catch (SQLException ex) {
@@ -128,24 +133,26 @@ public class ProveedorDao extends Dao{
         }
         return proveedores;
     }
-    
-    public Proveedor buscarId(int id) throws DAOException{
+
+    public Proveedor buscarId(int id) throws DAOException {
         Proveedor proveedor = new Proveedor();
-        
+
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(BUSCAR_ID);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
-            resultSet.next();
-            proveedor.setId(resultSet.getInt("idProveedor"));
-            proveedor.setNombre(resultSet.getString("nombre"));
-            proveedor.setTipo(resultSet.getString("tipo"));
-            proveedor.setContacto(resultSet.getString("contacto"));
-            proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
-            
+            if (resultSet.next()) {
+                proveedor.setId(resultSet.getInt("idProveedor"));
+                proveedor.setNombre(resultSet.getString("nombre"));
+                proveedor.setTipo(resultSet.getString("tipo"));
+                proveedor.setContacto(resultSet.getString("contacto"));
+                proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
+            }else{
+                return null;
+            }
 
         } catch (SQLException ex) {
             throw new DAOException(ex.getMessage(), "Error buscando el articulo por el id: " + id);
@@ -156,17 +163,17 @@ public class ProveedorDao extends Dao{
 
         return proveedor;
     }
-    
-    public ArrayList<Proveedor> buscarNombre(String nombre) throws DAOException{
+
+    public ArrayList<Proveedor> buscarNombre(String nombre) throws DAOException {
         ArrayList<Proveedor> proveedores = new ArrayList<Proveedor>();
-        String BUSCAR_NOMBRE = "SELECT * FROM proveedores WHERE nombre LIKE '" + nombre +"%'";
+        String BUSCAR_NOMBRE = "SELECT * FROM proveedores WHERE nombre LIKE '" + nombre + "%'";
 
         statement = null;
         resultSet = null;
-        
+
         try {
             statement = this.conexion.prepareStatement(BUSCAR_NOMBRE);
-            
+
             resultSet = statement.executeQuery();
             for (Entidad e : this.listarResultSet()) {
                 Proveedor a = (Proveedor) e;
