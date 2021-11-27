@@ -3,21 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Zon50/Documents/Repositorio%20POS/POS/src/vista/InicioDeSesion.java</file>
-            <file>file:/C:/Users/Zon50/Documents/Repositorio%20POS/POS/src/vista/paneles/PanelVentas.java</file>
-=======
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioArticulo.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/control/ControlVenta.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/control/ControlProveedores.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/control/ControlArticulos.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/datos/Conexion.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/dao/ProveedorDao.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/InicioDeSesion.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/formularios/FormularioProveedor.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelInventario.java</file>
-            <file>file:/C:/Repositorio%20POS/POS/src/vista/paneles/PanelProveedores.java</file>
->>>>>>> c2120e1b015c72878db105cdfa9f359178a43fb9
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/vista/InicioDeSesion.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/dao/ProveedorDao.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/datos/entidades/Usuario.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/pos/POS.java</file>
+            <file>file:/C:/Users/ASUS/Documents/NetBeansProjects/POS/src/vista/VentanaPrincipal.java</file>
         </group>
     </open-files>
 </project-private>

@@ -151,7 +151,7 @@ public class ProveedorDao extends Dao {
                 proveedor.setContacto(resultSet.getString("contacto"));
                 proveedor.setDiaEntrega(resultSet.getDate("diaEntrega"));
             }else{
-                return null;
+                return new Proveedor();
             }
 
         } catch (SQLException ex) {
